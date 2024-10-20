@@ -10,31 +10,35 @@ import {
 } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import { useNavigate } from 'react-router-dom'
+import carrot from '../assets/images/carrot.png'
+
 const Navbar = () => {
   const navigate = useNavigate()
-  const handleLoginClick = () => {
-    navigate('/login')
-  }
-  const handleSignupClick = () => {
-    navigate('/signup')
-  }
   const handleProfileClick = () => {
-    navigate('/profile')
+    navigate('/profile/')
+  }
+  const handleIconClick = () => {
+    navigate('/home/')
   }
   return (
     <AppBar
-      position="static"
+      position="fixed"
       color="transparent"
       elevation={0}
       sx={{ borderBottom: '1px solid #ddd' }}
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         {/* Left side: Logo and name */}
-        <Box display="flex" alignItems="center">
-          <img
-            src=""
-            alt="Logo"
-            style={{ marginRight: 10 }}
+        <Box display="flex" alignItems="center" onClick={handleIconClick}>
+          <Box
+            component="img"
+            sx={{
+              height: 50,
+              width: 50,
+              margin: 1,
+            }}
+            alt="carrot icon"
+            src={carrot}
           />
           <Typography
             variant="h6"
@@ -78,7 +82,11 @@ const Navbar = () => {
               ),
             }}
           />
-          <Button variant="outlined" sx={{ fontWeight: 'bold', color: '#333' }}>
+          <Button
+            variant="outlined"
+            sx={{ fontWeight: 'bold', color: '#333' }}
+            onClick={handleProfileClick}
+          >
             Profile
           </Button>
         </Box>

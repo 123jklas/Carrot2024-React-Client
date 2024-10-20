@@ -23,11 +23,11 @@ const Login = () => {
       return
     }
     console.log({ email, password })
-    navigate('/Home')
+    navigate('/home/')
   }
 
   const handleSignupClick = () => {
-    navigate('/signup') // Navigate to the signup page
+    navigate('/signup/') // Navigate to the signup page
   }
 
   return (
@@ -41,10 +41,14 @@ const Login = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar
+        <Box
+          component="img"
+          sx={{
+            height: 100,
+            width: 100,
+          }}
+          alt="carrot icon"
           src={carrot}
-          alt="Carrot logo"
-          sx={{ m: 1, width: 100, height: 100 }} // Adjust the size of the Avatar
         />
 
         <Typography component="h1" variant="h5">

@@ -8,7 +8,6 @@ import {
   Avatar,
   CssBaseline,
 } from '@mui/material'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { useNavigate } from 'react-router-dom'
 import carrot from '../../assets/images/carrot.png'
 
@@ -32,7 +31,7 @@ const Signup = () => {
     }
     // Handle signup logic here
     console.log({ email, password })
-    navigate('/Home')
+    navigate('/home/')
   }
 
   return (
@@ -46,10 +45,14 @@ const Signup = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar
+        <Box
+          component="img"
+          sx={{
+            height: 100,
+            width: 100,
+          }}
+          alt="carrot icon"
           src={carrot}
-          alt="Carrot logo"
-          sx={{ m: 1, width: 100, height: 100 }} // Adjust the size of the Avatar
         />
         <Typography component="h1" variant="h5">
           Sign Up
