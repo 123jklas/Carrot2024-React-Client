@@ -9,12 +9,17 @@ import {
   CssBaseline,
 } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import { useNavigate } from 'react-router-dom'
+import carrot from '../../assets/images/carrot.png'
 
 const Signup = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-
+  const navigate = useNavigate()
+  const handleToLoginClick = () => {
+    navigate('/')
+  }
   const handleSubmit = event => {
     event.preventDefault()
     // Basic validation for passwords match
@@ -27,6 +32,7 @@ const Signup = () => {
     }
     // Handle signup logic here
     console.log({ email, password })
+    navigate('/Home')
   }
 
   return (
@@ -40,9 +46,11 @@ const Signup = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar>
+        <Avatar
+          src={carrot}
+          alt="Carrot logo"
+          sx={{ m: 1, width: 100, height: 100 }} // Adjust the size of the Avatar
+        />
         <Typography component="h1" variant="h5">
           Sign Up
         </Typography>
@@ -95,7 +103,7 @@ const Signup = () => {
             fullWidth
             variant="contained"
             sx={{ mt: 0, mb: 2 }}
-            href="/login"
+            onClick={handleToLoginClick}
           >
             Already have an account? Sign In
           </Button>
