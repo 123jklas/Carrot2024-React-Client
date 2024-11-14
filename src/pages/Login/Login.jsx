@@ -5,7 +5,6 @@ import {
   Button,
   Typography,
   Box,
-  Avatar,
   CssBaseline,
 } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
