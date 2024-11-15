@@ -1,9 +1,9 @@
-import {createTheme} from '@mui/material/styles'
+import { createTheme } from '@mui/material/styles'
 
-export default function theme() => {
-    createTheme({
-        typography: {
-            fontFamily: 'Rubik, Arial, sans-serif',
-        },
-    })
+export default function theme() {
+  return createTheme({
+    typography: {
+      fontFamily: 'Rubik, Arial, sans-serif',
+    },
+  })
 }
