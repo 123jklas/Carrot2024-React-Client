@@ -20,10 +20,13 @@ const Navbar = () => {
   const handleIconClick = () => {
     navigate('/home/')
   }
+  const handleProductsClick = () => {
+    navigate('/products/')
+  }
   return (
     <AppBar
       position="fixed"
-      color="transparent"
+      color="inherit"
       elevation={0}
       sx={{ borderBottom: '1px solid #ddd' }}
     >
@@ -50,7 +53,11 @@ const Navbar = () => {
 
         {/* Center: Navigation Links */}
         <Box sx={{ display: 'flex', gap: 3 }}>
-          <Button color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
+          <Button
+              color="inherit"
+              sx={{ color: '#333', fontWeight: 'bold' }}
+              onClick={handleProductsClick}
+          >
             중고거래
           </Button>
           <Button color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>

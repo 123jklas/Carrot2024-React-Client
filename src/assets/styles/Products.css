@@ -1,0 +1,274 @@
+.products-container {
+  padding-top: 66px; /* Adjust for navbar height */
+}
+
+/* --- Main product-list container --- */
+.product-list {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row; /* Filters on the left, products on the right */
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  /* If you want the entire area scrollable: */
+  min-height: 100vh;
+  overflow: auto;
+}
+
+/* --- Overlap container to group filters & products side by side --- */
+.product-list .overlap {
+  background-color: #f7f1eb; /* Subtle neutral background */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 20px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+/* --- Filters container (outer shell) --- */
+.filters-container {
+  flex: 1;
+  max-width: 300px;
+}
+/* Main filters card */
+.filters-section {
+  border-radius: 16px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: auto;
+  font-family: "Rubik", sans-serif; /* or your preferred font */
+}
+
+/* Top header row: "Filters" + optional icon */
+.filters-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filters-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #000;
+}
+
+.filters-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Divider line */
+.filters-divider {
+  width: 100%;
+  height: 1px;
+  background-color: #ddd;
+  margin: 0;
+}
+
+/* Filter group wrappers: (Category, Price Range, Location) */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Subheading inside each group */
+.filter-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000; 
+  margin-bottom: 0;
+}
+
+/* Category dropdown (select) */
+.filter-dropdown {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #f7f1eb;
+  font-size: 14px;
+  color: #555;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.filter-dropdown:focus {
+  outline: none;
+  border-color: #000;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+}
+
+/* Price range row */
+.price-values {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* If using MUI slider, override to make it black: */
+.MuiSlider-track {
+  background-color: #000 !important;
+}
+.MuiSlider-thumb {
+  background-color: #000 !important;
+}
+.MuiSlider-rail {
+  background-color: #333 !important;
+}
+
+/* Container for all location checkboxes */
+.locations {
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* spacing between rows */
+  margin-top: 8px; 
+}
+
+/* Each checkbox row */
+.location-label {
+  display: flex;
+  align-items: center;
+  font-size: 13px;   /* slightly larger text */
+  color: #333;       /* darker text for clarity */
+  cursor: pointer;   /* show pointer on hover */
+  user-select: none;
+  padding: 3px 0;    /* vertical padding for spacing */
+  transition: background-color 0.2s ease;
+}
+
+/* Optional hover effect to highlight the row */
+.location-label:hover {
+  background-color: #f9f9f9;
+  border-radius: 6px;
+}
+
+.location-label input[type="checkbox"]::before {
+  background-color: #f7f1eb;
+}
+
+/* Style the native checkbox */
+.location-label input[type="checkbox"] {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+  accent-color: #000;  /* black checkboxes in modern browsers */
+  cursor: pointer;
+  /* If you want them a bit bigger, you can also do:
+     transform: scale(1.1);
+  */
+}
+
+
+/* Apply Filter button */
+.apply-filter-container {
+  text-align: center;
+}
+
+.apply-filter-button {
+  width: 100%;
+  padding: 14px 0;
+  background-color: #000; /* black button */
+  color: #fff;
+  border: none;
+  border-radius: 9999px; /* pill-shape */
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+.apply-filter-button:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+}
+.apply-filter-button:active {
+  transform: translateY(0);
+}
+
+/* --- Product listing area (container) --- */
+.product-list .product-list-main {
+  flex: 3; /* Takes up the main area to display products */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px; /* Space between product items */
+  padding: 20px;
+  justify-content: flex-start;
+  width: calc(100% - 320px); /* Adjust relative to the filters' width */
+  box-sizing: border-box;
+  overflow-y: auto; /* Enable scrolling if content exceeds container height */
+}
+
+/* 
+  For each product card 
+  (we'll apply similar styles to .frame-8 and .frame-9):
+*/
+.product-list .frame-8,
+.product-list .frame-9 {
+  border-radius: 12px;
+  border: #777 solid 1px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Subtle card shadow */
+  width: 280px;             /* Fixed or max width for each card */
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect for each product card */
+.product-list .frame-8:hover,
+.product-list .frame-9:hover {
+  cursor: pointer;
+  transform: translateY(-6px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Image Wrapper --- */
+.product-list .product-image {
+  width: 100%;
+  background-color: #f0eeed;
+  border-radius: 12px;
+  overflow: hidden;       /* Ensures corners of the image are clipped */
+  margin-bottom: 16px;    /* Spacing below the image */
+}
+
+.product-list .image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+/* --- Product Name --- */
+.product-list .text-wrapper-12 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+/* --- Price Row --- */
+.product-list .price {
+  margin-bottom: 8px;
+}
+
+.product-list .price .text-wrapper-11 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ff6600; /* Accent color for the price */
+}
+
+/* --- Location text --- */
+.product-list .text-wrapper-10 {
+  font-size: 14px;
+  font-weight: 400;
+  color: #666;
+  text-align: center;
+}

@@ -1,0 +1,117 @@
+/***************************************
+ * Generic legal-page container
+ ***************************************/
+ .legal-page {
+    max-width: 800px;       /* Constrain the content width */
+    margin: 80px auto;      /* Center and add top/bottom spacing */
+    padding: 10px 20px;        /* Horizontal padding */
+    background-color: #fff; /* White background for readability */
+    border-radius: 8px;     /* Slightly rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: "Rubik", sans-serif;
+  }
+  
+  /***************************************
+   * Heading styles
+   ***************************************/
+  .legal-page h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    text-align: center;
+    color: #000;
+  }
+  
+  .legal-page h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    color: #333;
+  }
+  
+  /***************************************
+   * Paragraph & text content styles
+   ***************************************/
+  .legal-page p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 16px;
+  }
+  
+  .legal-page ul,
+  .legal-page ol {
+    margin-left: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .legal-page li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+  
+  /***************************************
+   * Minor headings or sub-headers
+   ***************************************/
+  .legal-subheader {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    margin-top: 16px;
+    color: #444;
+  }
+  
+  /***************************************
+   * Divider for section separation
+   ***************************************/
+  .legal-divider {
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+    margin: 24px 0;
+  }
+  
+  /***************************************
+   * Links
+   ***************************************/
+  .legal-page a {
+    color: #ff6600; /* or your brand accent color */
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .legal-page a:hover {
+    color: #cc5200;
+  }
+  
+  /***************************************
+   * Example "last updated" or contact info
+   ***************************************/
+  .legal-footer-note {
+    margin-top: 32px;
+    font-size: 14px;
+    text-align: center;
+    color: #999;
+  }
+  
+  /***************************************
+   * Responsive Adjustments
+   ***************************************/
+  @media (max-width: 600px) {
+    .legal-page {
+      margin: 40px 10px;
+      padding: 10px;
+    }
+    .legal-page h1 {
+      font-size: 26px;
+    }
+    .legal-page h2 {
+      font-size: 20px;
+    }
+    .legal-page p {
+      font-size: 15px;
+    }
+  }
+  
