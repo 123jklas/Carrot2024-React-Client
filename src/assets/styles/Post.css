@@ -1,0 +1,193 @@
+:root {
+  --background-light: #f4eadf;
+  --background-lighter: #f4e9df;
+  --background-dark: #f7f1eb;
+  --accent-color: #ff6f0f;
+  --font-color-dark: #000000;
+  --font-color-light: #6f6565;
+  --font-rubik-regular: "Rubik-Regular", Helvetica;
+  --font-rubik-bold: "Rubik-Bold", Helvetica;
+  --border-radius: 25px;
+}
+
+body {
+  background-color: #F7F1EB; 
+  margin: 0;
+  font-family: var(--font-rubik-regular); 
+}
+
+.product-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  margin-top: 80px; /* Added margin to prevent overlap with navbar */
+}
+
+.product-detail__image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.product-detail__image {
+  max-width: 55%;
+  height: auto;
+  border-radius: 45px;
+}
+
+.product-detail__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 800px; 
+  text-align: center;
+}
+
+.product-detail__title {
+  font-size: 32px;
+  color: var(--font-color-dark);
+  margin-bottom: -5px;
+  margin-top: -5px;
+}
+
+.product-detail__meta {
+  font-size: 16px;
+  color: var(--font-color-light);
+  margin-bottom: 10px;
+  display: flex; 
+  gap: 5px;
+}
+
+.product-detail__date, .product-detail__category {
+  margin: 5px 0;
+}
+
+.product-detail__box {
+  background-color: var(--background-light);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  width: 80%;
+  max-width: 800px;
+  text-align: left;
+}
+
+.product-detail__price {
+  font-size: 24px;
+  color: var(--accent-color);
+}
+
+.product-detail__description {
+  font-size: 16px;
+  color: var(--font-color-light);
+  margin-top: 10px;
+}
+
+.product-detail__stats {
+  color: var(--accent-color);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.product-detail__likes, .product-detail__views {
+  color: var(--accent-color);
+}
+
+.product-detail__add-to-cart {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.user-profile {
+  display: flex; 
+  align-items: center; 
+  gap: 10px;
+}
+
+.product-detail__user {
+  width: 5%;
+  height: 5%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.product-detail__username {
+  font-size: 30px;
+  color: var(--font-color-dark);
+}
+
+/* Related Products Section */
+.related-products {
+  font-family: var(--font-rubik-regular);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--font-color-dark);
+  margin-top: 40px;
+  text-align: center;
+}
+
+.related-products__list {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.related-products__item {
+  text-align: center;
+  max-width: 250px; /* Increase the width for a more card-like feel */
+  flex-grow: 1;
+  background-color: white; /* Light background for cards */
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for card effect */
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover */
+}
+
+.related-products__item:hover {
+  transform: translateY(-10px); /* Lift the card on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.related-products__image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px; /* Increased margin to separate the image from text */
+}
+
+.related-products__name {
+  font-size: 18px; /* Larger name for better visibility */
+  color: var(--font-color-dark);
+  font-weight: bold;
+  margin-bottom: 5px; /* Space between name and price */
+}
+
+.related-products__price {
+  font-size: 16px;
+  color: var(--accent-color);
+}
+
+.related-products__line {
+  margin: 20px 0;
+  border: 0;
+  height: 2px;
+  background-color: var(--accent-color);
+  max-width: 55%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
