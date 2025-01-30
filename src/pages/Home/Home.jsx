@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { useNavigate } from 'react-router-dom'
 import {
   Container,
   Box,
@@ -47,6 +48,7 @@ const Slider = () => {
       prevIndex === 0 ? slides.length - 1 : prevIndex - 1
     );
   };
+
 
   return (
     <Box
@@ -132,6 +134,10 @@ const Slider = () => {
   );
 };
 const Introduction = () => {
+  const navigate = useNavigate()
+  const handleProductsClick = () => {
+    navigate('/products/')
+  }
   return (
     <Box className="intro-container" sx={{ width: '100%', maxWidth: 1400, textAlign: 'left', color: '#294122', fontFamily: 'Rubik, sans-serif', marginBottom: 4 }}>
       <Typography className="intro-since" sx={{ fontSize: '1.2rem', fontWeight: 400, marginBottom: 1 }}>Since 2024</Typography>
@@ -140,7 +146,7 @@ const Introduction = () => {
       <Typography className="intro-text" sx={{ fontSize: '1.5rem', lineHeight: 1.2, fontWeight: 550, marginBottom: 3, color: '#416037' }}>
         Welcome to UT GYUL — your exclusive, student-only marketplace! Designed specifically for UT students, UT GYUL makes buying, selling, and exchanging items on campus safe, simple, and convenient. Whether you're looking for textbooks, dorm essentials, or event tickets, UT GYUL brings the UT community together for secure, student-to-student transactions. Say goodbye to hassle and hello to seamless, trusted trades with your fellow Longhorns.
       </Typography>
-      <Button className="buy-now-button" sx={{ backgroundColor: '#1e3932', color: 'white', padding: '12px 24px', border: 'none', borderRadius: 1, cursor: 'pointer', fontSize: '1rem', fontFamily: 'Rubik, sans-serif', marginBottom: 2, '&:hover': { backgroundColor: '#145a32' } }}>BUY NOW</Button>
+      <Button className="buy-now-button" onClick={handleProductsClick} sx={{ backgroundColor: '#1e3932', color: 'white', padding: '12px 24px', border: 'none', borderRadius: 1, cursor: 'pointer', fontSize: '1rem', fontFamily: 'Rubik, sans-serif', marginBottom: 2, '&:hover': { backgroundColor: '#145a32' } }}>BUY NOW</Button>
     </Box>
   );
 };
