@@ -58,19 +58,16 @@ const Navbar = () => {
               sx={{ color: '#333', fontWeight: 'bold' }}
               onClick={handleProductsClick}
           >
-            중고거래
+            Home
           </Button>
           <Button color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
-            동네업체
+            Shop
           </Button>
           <Button color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
-            알바
+            About
           </Button>
           <Button color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
-            부동산
-          </Button>
-          <Button color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
-            중고차 직거래
+            Contact
           </Button>
         </Box>
 
