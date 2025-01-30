@@ -16,6 +16,7 @@ const Products = () => {
         utTower: false,
         westCampus: false,
     });
+    const [filteredProducts, setFilteredProducts] = useState([]);
 
     // Handler for category selection
     const handleCategoryChange = (e) => {
@@ -40,35 +41,39 @@ const Products = () => {
     // Handler for applying filters
     const applyFilters = () => {
         const selectedLocations = Object.keys(locations).filter(
-            (key) => locations[key]
+        (key) => locations[key]
         );
-
+    
         const filterData = {
-            category,
-            priceRange,
-            locations: selectedLocations,
+        category,
+        priceRange,
+        locations: selectedLocations,
         };
-
+    
         // Send filterData to backend
-        // Example using fetch:
-        /*
-        fetch('/api/filters', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(filterData),
+        fetch('http://127.0.0.1:8000/api/filter-products/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(filterData),
         })
-            .then(response => response.json())
-            .then(data => {
-                // Handle response data
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        */
-
-        console.log('Filters Applied:', filterData);
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // 'data' is the list of filtered products from the backend
+            console.log('Filtered products:', data);
+            // Here, you could set some React state to store these products 
+            // and render them dynamically instead of the static sample products
+            setFilteredProducts(data); // Save returned products in state
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     };
     return(   
         <div className="products-container"> 
@@ -191,85 +196,21 @@ const Products = () => {
                         </div>
 
 
-                    <div className="product-list-main">
-                    {/* Product Card #1 */}
-                    <div className="frame-8">
-                        <div className="product-image">
-                        <img
-                            className="image"
-                            alt="Sample product"
-                            src="https://c.animaapp.com/XeKvVFtn/img/image-8-2@2x.png"
-                        />
+                        <div className="product-list-main">
+                        {filteredProducts.map(product => (
+                            <div className="frame-8" key={product.id}>
+                            <div className="product-image">
+                                {/* If you store an image URL in 'product.image_url', for example */}
+                                <img className="image" alt="Sample product" src={product.image_url} />
+                            </div>
+                            <div className="text-wrapper-12">{product.name}</div>
+                            <div className="price">
+                                <div className="text-wrapper-11">${product.price}</div>
+                            </div>
+                            <div className="text-wrapper-10">{product.location}</div>
+                            </div>
+                        ))}
                         </div>
-
-                        {/* Product Name */}
-                        <div className="text-wrapper-12">Product Name</div>
-
-                        {/* Price */}
-                        <div className="price">
-                        <div className="text-wrapper-11">$120</div>
-                        </div>
-
-                        {/* Location */}
-                        <div className="text-wrapper-10">Gregory Gym</div>
-                    </div>
-
-                    {/* Product Card #2 */}
-                    <div className="frame-8">
-                        <div className="product-image">
-                        <img
-                            className="image"
-                            alt="Sample product"
-                            src="https://c.animaapp.com/XeKvVFtn/img/image-8-2@2x.png"
-                        />
-                        </div>
-
-                        <div className="text-wrapper-12">Product Name</div>
-
-                        <div className="price">
-                        <div className="text-wrapper-11">$80</div>
-                        </div>
-
-                        <div className="text-wrapper-10">EER</div>
-                    </div>
-
-                    {/* Product Card #3 */}
-                    <div className="frame-9">
-                        <div className="product-image">
-                        <img
-                            className="image"
-                            alt="Sample product"
-                            src="https://c.animaapp.com/XeKvVFtn/img/image-8-2@2x.png"
-                        />
-                        </div>
-
-                        <div className="text-wrapper-12">Another Product</div>
-
-                        <div className="price">
-                        <div className="text-wrapper-11">$45</div>
-                        </div>
-
-                        <div className="text-wrapper-10">West Campus</div>
-                    </div>
-                    {/* Product Card #3 */}
-                    <div className="frame-9">
-                        <div className="product-image">
-                        <img
-                            className="image"
-                            alt="Sample product"
-                            src="https://c.animaapp.com/XeKvVFtn/img/image-8-2@2x.png"
-                        />
-                        </div>
-
-                        <div className="text-wrapper-12">Another Product</div>
-
-                        <div className="price">
-                        <div className="text-wrapper-11">$45</div>
-                        </div>
-
-                        <div className="text-wrapper-10">West Campus</div>
-                    </div>
-                    </div>
                     </div>
                 </div>
 
