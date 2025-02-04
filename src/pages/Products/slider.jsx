@@ -29,6 +29,15 @@ function ValueLabelComponent(props) {
   );
 }
 
+// Handler for price range change
+const handlePriceChange = (event, newValue) => {
+  const minDistance = 8;
+  if (newValue[1] - newValue[0] < minDistance) {
+    return;
+  }
+  
+};
+
 ValueLabelComponent.propTypes = {
   children: PropTypes.element.isRequired,
   value: PropTypes.number.isRequired,
@@ -50,6 +59,7 @@ export default function RangeSlider({
       components={{
         ValueLabel: ValueLabelComponent, // Use our custom ValueLabel
       }}
+      disableSwap
     />
   );
 }

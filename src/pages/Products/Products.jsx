@@ -32,8 +32,21 @@ const Products = () => {
 
   // Handler for price range change
   const handlePriceChange = (event, newValue) => {
-    setPriceRange(newValue);
+    const minDistance = 35; // Define the minimum distance
+  
+    // Enforce minimum distance between the two values
+    if (newValue[1] - newValue[0] >= minDistance) {
+      setPriceRange(newValue);
+    } else {
+      // Adjust values to maintain the minimum distance
+      if (newValue[0] === priceRange[0]) {
+        setPriceRange([newValue[0], newValue[0] + minDistance]);
+      } else {
+        setPriceRange([newValue[1] - minDistance, newValue[1]]);
+      }
+    }
   };
+  
 
   // Handler for location checkbox toggle
   const handleLocationChange = (e) => {
