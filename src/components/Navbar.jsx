@@ -11,6 +11,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search'
 import { useNavigate } from 'react-router-dom'
 import carrot from '../assets/images/carrot.png'
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const navigate = useNavigate()
@@ -58,19 +59,19 @@ const Navbar = () => {
               sx={{ color: '#333', fontWeight: 'bold' }}
               onClick={handleProductsClick}
           >
-            중고거래
+            products
           </Button>
-          <Button color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
-            동네업체
+          <Button component={Link} to="/Business" color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
+            Business
           </Button>
-          <Button color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
-            알바
+          <Button component={Link} to="/Jobs" color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
+            Jobs
           </Button>
-          <Button color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
-            부동산
+          <Button component={Link} to="/Realestate" color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
+            Realestate
           </Button>
-          <Button color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
-            중고차 직거래
+          <Button component={Link} to="/Cars" color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
+            Cars
           </Button>
         </Box>
 
