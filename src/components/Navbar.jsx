@@ -90,13 +90,10 @@ const Navbar = () => {
               ),
             }}
           />
-          <Button
-            variant="outlined"
-            sx={{ fontWeight: 'bold', color: '#333' }}
-            onClick={handleProfileClick}
-          >
-            Profile
-          </Button>
+          <div>
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="circle" onClick={handleProfileClick}/>
+          </div>
+          
         </Box>
       </Toolbar>
     </AppBar>
