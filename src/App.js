@@ -9,6 +9,10 @@ import Products from './pages/Products/Products'
 import TermsAndConditions from './pages/Legal/Terms&Conditions'
 import PrivacyPolicy from './pages/Legal/PrivacyPolicy'
 import './assets/styles/App.css'
+import BusinessPage from './pages/BusinessPage/Business';
+import JobsPage from './pages/JobsPage/Jobs';
+import RealestatePage from './pages/RealestatePage/Realestate';
+import CarsPage from './pages/CarsPage/Cars';
 
 function App() {
   return (
@@ -23,6 +27,10 @@ function App() {
           <Route path="/terms" element={<TermsAndConditions />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/post" element={<Post />} />
+          <Route path="/business" element={<BusinessPage />} />
+          <Route path="/jobs" element={<JobsPage />} />
+          <Route path="/realestate" element={<RealestatePage />} />
+          <Route path="/cars" element={<CarsPage />} />
         </Routes>
       </div>
     </Router>

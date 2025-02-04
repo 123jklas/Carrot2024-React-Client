@@ -11,6 +11,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search'
 import { useNavigate } from 'react-router-dom'
 import carrot from '../assets/images/carrot.png'
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const navigate = useNavigate()
@@ -58,16 +59,19 @@ const Navbar = () => {
               sx={{ color: '#333', fontWeight: 'bold' }}
               onClick={handleProductsClick}
           >
-            Home
+            products
           </Button>
-          <Button color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
-            Shop
+          <Button component={Link} to="/Business" color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
+            Business
           </Button>
-          <Button color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
-            About
+          <Button component={Link} to="/Jobs" color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
+            Jobs
           </Button>
-          <Button color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
-            Contact
+          <Button component={Link} to="/Realestate" color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
+            Realestate
+          </Button>
+          <Button component={Link} to="/Cars" color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
+            Cars
           </Button>
         </Box>
 
