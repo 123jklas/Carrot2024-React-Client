@@ -3,9 +3,15 @@ import Navbar from '../../components/Navbar';
 import '../../assets/styles/Products.css';
 import RangeSlider from './slider';
 import Footer from '../../components/Footer';
-import default_image from '../../assets/images/default.png'
+import default_image from '../../assets/images/default.png';
+import { useNavigate } from 'react-router-dom';
+import {
+  Button,
+} from '@mui/material';
 
 const Products = () => {
+  const navigate = useNavigate()
+
   // State management for filters
   const [category, setCategory] = useState('');
   const [priceRange, setPriceRange] = useState([0, 500]);
@@ -21,7 +27,7 @@ const Products = () => {
 
   // 정렬 기준 변경 핸들러
   const handleSortChange = (e) => {
-    setSortOption(e.target.value);
+    setSortOption(e.target.value); 
   };
 
   // // Mapping from state keys to actual location names
@@ -97,6 +103,10 @@ const Products = () => {
       .catch(error => {
         console.error('Error:', error);
       });
+  };
+
+  const handleAddPostClick = () => {
+    navigate('/add-product')
   };
 
   // Fetch all products when the component mounts
@@ -247,6 +257,7 @@ const Products = () => {
               <div className="no-products-message">No products available.</div>
             )}
           </div>
+          <Button className="make-post-button" onClick={handleAddPostClick}>Make Post</Button>
         </div>
       </div>
       <Footer />

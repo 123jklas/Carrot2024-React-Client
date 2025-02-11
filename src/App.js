@@ -13,6 +13,7 @@ import BusinessPage from './pages/BusinessPage/Business';
 import JobsPage from './pages/JobsPage/Jobs';
 import RealestatePage from './pages/RealestatePage/Realestate';
 import CarsPage from './pages/CarsPage/Cars';
+import AddProduct from './pages/Products/AddProduct';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/jobs" element={<JobsPage />} />
           <Route path="/realestate" element={<RealestatePage />} />
           <Route path="/cars" element={<CarsPage />} />
+          <Route path="/add-product" element={<AddProduct />} />
         </Routes>
       </div>
     </Router>

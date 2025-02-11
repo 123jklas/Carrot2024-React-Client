@@ -1,0 +1,86 @@
+/* Main container to center content and keep footer at the bottom */
+.add-product-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; 
+  align-items: center; 
+  min-height: 100vh; 
+  padding-top: 4rem; 
+  width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 60rem; 
+  padding: 2rem;
+}
+
+label[for="title"], label[for="content"] {
+  width: 100%;
+  font-weight: bold;
+}
+
+textarea {
+  width: 100%;
+  height: 15rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.input-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 equal columns */
+  gap: 2rem; /* Space between items */
+  width: 100%;
+  margin-top: 1rem;
+  max-width: 60rem;
+  justify-content: flex-start;
+}
+
+.input-grid label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: left;
+}
+
+.input-grid input,
+.input-grid select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.add-product-container form label {
+  text-align: left; /* Explicitly left-align labels */
+}
+
+.button-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+button {
+  padding: 0.75rem 2rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
