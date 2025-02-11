@@ -272,3 +272,34 @@
   color: #666;
   text-align: center;
 }
+
+.filter-group {
+  margin-bottom: 20px; /* 아래 여백 추가 */
+}
+
+.filter-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333; /* 더 선명한 색상 */
+  margin-bottom: 8px; /* 제목과 드롭다운 간격 */
+}
+
+.filter-dropdown {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.filter-dropdown:hover {
+  border-color: #888;
+}
+
+.filter-dropdown:focus {
+  border-color: #555;
+  outline: none;
+}

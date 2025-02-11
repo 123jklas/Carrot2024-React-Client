@@ -9,21 +9,28 @@ const Products = () => {
   // State management for filters
   const [category, setCategory] = useState('');
   const [priceRange, setPriceRange] = useState([0, 500]);
-  const [locations, setLocations] = useState({
-    gregoryGym: false,
-    eer: false,
-    utTower: false,
-    westCampus: false,
-  });
+  // // const [locations, setLocations] = useState({
+  // //   gregoryGym: false,
+  // //   eer: false,
+  // //   utTower: false,
+  // //   westCampus: false,
+  // });
   const [filteredProducts, setFilteredProducts] = useState([]);
+  // 정렬 옵션 상태 추가
+  const [sortOption, setSortOption] = useState('latest'); // 기본값: 최신순
 
-  // Mapping from state keys to actual location names
-  const locationMapping = {
-    gregoryGym: "Gregory Gym",
-    eer: "EER",
-    utTower: "UT Tower",
-    westCampus: "West Campus"
+  // 정렬 기준 변경 핸들러
+  const handleSortChange = (e) => {
+    setSortOption(e.target.value);
   };
+
+  // // Mapping from state keys to actual location names
+  // const locationMapping = {
+  //   gregoryGym: "Gregory Gym",
+  //   eer: "EER",
+  //   utTower: "UT Tower",
+  //   westCampus: "West Campus"
+  // };
 
   // Handler for category selection
   const handleCategoryChange = (e) => {
@@ -49,24 +56,25 @@ const Products = () => {
   
 
   // Handler for location checkbox toggle
-  const handleLocationChange = (e) => {
-    const { name, checked } = e.target;
-    setLocations(prev => ({
-      ...prev,
-      [name]: checked,
-    }));
-  };
+  // const handleLocationChange = (e) => {
+  //   const { name, checked } = e.target;
+  //   setLocations(prev => ({
+  //     ...prev,
+  //     [name]: checked,
+  //   }));
+  // };
 
   // Handler for applying filters
   const applyFilters = () => {
-    // Get keys for checked locations and map them to expected strings.
-    const selectedKeys = Object.keys(locations).filter(key => locations[key]);
-    const selectedLocations = selectedKeys.map(key => locationMapping[key]);
+    // // Get keys for checked locations and map them to expected strings.
+    // const selectedKeys = Object.keys(locations).filter(key => locations[key]);
+    // const selectedLocations = selectedKeys.map(key => locationMapping[key]);
 
     const filterData = {
       category,
       priceRange,
-      locations: selectedLocations,
+      // locations: selectedLocations,
+      sortBy: sortOption,
     };
 
     fetch('http://127.0.0.1:8000/api/filter-products/', {
@@ -151,7 +159,15 @@ const Products = () => {
 
               <div className="filters-divider"></div>
 
-              {/* Location Filter */}
+              <div className="filter-group">
+                <h3 className="filter-title">Sort By</h3>
+                <select className="filter-dropdown" value={sortOption} onChange={handleSortChange}>
+                  <option value="latest">Latest</option>
+                  <option value="popular">Most Popular</option>
+                </select>
+              </div>
+
+              {/* Location Filter
               <div className="filter-group">
                 <h3 className="filter-title">Location</h3>
                 <div className="locations">
@@ -195,7 +211,7 @@ const Products = () => {
                     West Campus
                   </label>
                 </div>
-              </div>
+              </div> */}
 
               <div className="filters-divider"></div>
 
