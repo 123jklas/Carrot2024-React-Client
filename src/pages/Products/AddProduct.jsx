@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../assets/styles/ProductService.css';
 import Navbar from '../../components/Navbar';
@@ -12,8 +12,22 @@ const AddProduct = () => {
     const [price, setPrice] = useState('');
     const [location, setLocation] = useState('');
     const [category, setCategory] = useState('');
+    // getting the categories options that is already set up in backend
+    const [categories, setCategories] = useState([]);
     const [image, setImage] = useState(null);
     const navigate = useNavigate();
+
+    // Fetch categories from the backend when the component mounts
+    useEffect(() => {
+        fetch('http://127.0.0.1:8000/api/categories/')  // Endpoint to fetch categories
+            .then((response) => response.json())
+            .then((data) => {
+                setCategories(data);  // Set the categories in the state
+            })
+            .catch((error) => {
+                console.error('Error fetching categories:', error);
+            });
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,7 +42,7 @@ const AddProduct = () => {
         if (image) formData.append('image', image);
 
         try {
-            const response = await fetch('/api/products/', {
+            const response = await fetch('http://127.0.0.1:8000/products/create/', {
                 method: 'POST',
                 body: formData,
             });
@@ -87,15 +101,17 @@ const AddProduct = () => {
                       />
                   </label>
                   <label>
-                      Category:
-                      <select value={category} onChange={(e) => setCategory(e.target.value)} required>
-                          <option value="">Select a category</option>
-                          {/* Replace with your actual CATEGORY_CHOICES */}
-                          <option value="electronics">Electronics</option>
-                          <option value="clothing">Clothing</option>
-                          <option value="home">Home</option>
-                      </select>
-                  </label>
+                        Category:
+                        <select value={category} onChange={(e) => setCategory(e.target.value)} required>
+                            <option value="">Select a category</option>
+                            {/* Render the fetched categories dynamically */}
+                            {categories.map((cat) => (
+                                <option key={cat.value} value={cat.value}>
+                                    {cat.label}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
                   <label>
                       Image:
                       <input
@@ -112,7 +128,7 @@ const AddProduct = () => {
                 </label>
                 <div className="button-container">
                   <button type="submit">Submit Product</button>
-                  <button onClick={() => navigate('/')}>Cancel</button>
+                  <button onClick={() => navigate('/products')}>Cancel</button>
                 </div>
             </form>
             <Footer />
