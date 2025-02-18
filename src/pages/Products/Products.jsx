@@ -177,52 +177,6 @@ const Products = () => {
                 </select>
               </div>
 
-              {/* Location Filter
-              <div className="filter-group">
-                <h3 className="filter-title">Location</h3>
-                <div className="locations">
-                  <label className="location-label">
-                    <input
-                      type="checkbox"
-                      name="gregoryGym"
-                      checked={locations.gregoryGym}
-                      onChange={handleLocationChange}
-                    />
-                    Gregory Gym
-                  </label>
-
-                  <label className="location-label">
-                    <input
-                      type="checkbox"
-                      name="eer"
-                      checked={locations.eer}
-                      onChange={handleLocationChange}
-                    />
-                    EER
-                  </label>
-
-                  <label className="location-label">
-                    <input
-                      type="checkbox"
-                      name="utTower"
-                      checked={locations.utTower}
-                      onChange={handleLocationChange}
-                    />
-                    UT Tower
-                  </label>
-
-                  <label className="location-label">
-                    <input
-                      type="checkbox"
-                      name="westCampus"
-                      checked={locations.westCampus}
-                      onChange={handleLocationChange}
-                    />
-                    West Campus
-                  </label>
-                </div>
-              </div> */}
-
               <div className="filters-divider"></div>
 
               {/* Apply Filter Button */}
@@ -231,6 +185,11 @@ const Products = () => {
                   Apply Filters
                 </button>
               </div>
+            </div>
+            <div className="make-post-section">
+              <button className="make-post-button" onClick={handleAddPostClick}>
+                Hook Post
+              </button>
             </div>
           </div>
 
@@ -257,7 +216,6 @@ const Products = () => {
               <div className="no-products-message">No products available.</div>
             )}
           </div>
-          <Button className="make-post-button" onClick={handleAddPostClick}>Make Post</Button>
         </div>
       </div>
       <Footer />

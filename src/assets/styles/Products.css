@@ -42,6 +42,7 @@
   gap: 16px;
   height: auto;
   font-family: "Rubik", sans-serif; /* or your preferred font */
+  margin-bottom: 20px;
 }
 
 /* Top header row: "Filters" + optional icon */
@@ -302,4 +303,35 @@
 .filter-dropdown:focus {
   border-color: #555;
   outline: none;
+}
+
+.make-post-section {
+  border-radius: 16px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: auto;
+  font-family: "Rubik", sans-serif; /* or your preferred font */
+}
+
+.make-post-button {
+  width: 100%;
+  padding: 14px 0;
+  background-color: #ff6600; /* black button */
+  color: #fff;
+  border: none;
+  border-radius: 9999px; /* pill-shape */
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+.make-post-button:hover {
+  background-color: #ff8844;
+  transform: translateY(-2px);
+}
+.make-post-button:active {
+  transform: translateY(0);
 }
