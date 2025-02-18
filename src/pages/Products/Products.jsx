@@ -250,13 +250,21 @@ const Products = () => {
                   <div className="price">
                     <div className="text-wrapper-11">${product.price}</div>
                   </div>
-                  <div className="text-wrapper-10">{product.location}</div>
+                  <div className="post-info">
+                    <span className="post-date">
+                      {new Date(product.created_at).toLocaleDateString()}
+                    </span>
+                    <span className="popularity">
+                      Popularity: {product.popularity}
+                    </span>
+                  </div>
                 </div>
               ))
             ) : (
               <div className="no-products-message">No products available.</div>
             )}
           </div>
+
           <Button className="make-post-button" onClick={handleAddPostClick}>Make Post</Button>
         </div>
       </div>

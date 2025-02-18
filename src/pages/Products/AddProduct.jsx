@@ -58,6 +58,7 @@ const AddProduct = () => {
     };
 
     return (
+        <div className="add-product-container-container">
         <div className="add-product-container">
           <Navbar />
             <h2>Add New Product</h2>
@@ -131,7 +132,8 @@ const AddProduct = () => {
                   <button onClick={() => navigate('/products')}>Cancel</button>
                 </div>
             </form>
-            <Footer />
+        </div>
+        <Footer />
         </div>
     );
 };
