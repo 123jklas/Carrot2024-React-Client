@@ -1,11 +1,12 @@
 /* Main container to center content and keep footer at the bottom */
+
 .add-product-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start; 
   align-items: center; 
-  min-height: 100vh; 
   padding-top: 4rem; 
+  min-height: 90vh;
   width: 100%;
 }
 
