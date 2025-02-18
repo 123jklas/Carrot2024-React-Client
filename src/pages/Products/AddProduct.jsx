@@ -48,7 +48,7 @@ const AddProduct = () => {
             });
 
             if (response.ok) {
-                navigate('/'); // Redirect to the product list after successful submission
+                navigate('/products'); // Redirect to the product list after successful submission
             } else {
                 console.error('Failed to add product');
             }
