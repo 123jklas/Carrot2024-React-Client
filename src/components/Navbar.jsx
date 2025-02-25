@@ -46,9 +46,9 @@ const Navbar = () => {
           />
           <Typography
             variant="h6"
-            sx={{ fontWeight: 'bold', color: '#FF7E35' }}
+            sx={{ fontWeight: 'bold', color: '#da4208' }}
           >
-            UT 당근
+            HORN DEALS
           </Typography>
         </Box>
 
