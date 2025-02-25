@@ -36,8 +36,8 @@ body {
 
 .product-detail__image {
   max-width: 55%;
+  border-radius: 5%;
   height: auto;
-  border-radius: 45px;
 }
 
 .product-detail__info {
@@ -47,7 +47,6 @@ body {
   gap: 10px;
   width: 100%;
   max-width: 800px; 
-  text-align: center;
 }
 
 .product-detail__title {
@@ -61,7 +60,11 @@ body {
   font-size: 16px;
   color: var(--font-color-light);
   margin-bottom: 10px;
+  text-align: left;
   display: flex; 
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
   gap: 5px;
 }
 

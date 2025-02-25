@@ -14,6 +14,7 @@ import JobsPage from './pages/JobsPage/Jobs';
 import RealestatePage from './pages/RealestatePage/Realestate';
 import CarsPage from './pages/CarsPage/Cars';
 import AddProduct from './pages/Products/AddProduct';
+import ProductDetail from './pages/Products/ProductDetail';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/realestate" element={<RealestatePage />} />
           <Route path="/cars" element={<CarsPage />} />
           <Route path="/add-product" element={<AddProduct />} />
+          <Route path="/product/:productId" element={<ProductDetail />} />
         </Routes>
       </div>
     </Router>
