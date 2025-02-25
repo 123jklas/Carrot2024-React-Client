@@ -3,9 +3,12 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import axios from 'axios';
 import '../../assets/styles/Profile.css';
+import default_image from '../../assets/images/default.png';
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
+  const navigate = useNavigate()
   const [user, setUser] = useState({});
   const [products, setProducts] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
@@ -55,7 +58,8 @@ const Profile = () => {
     try {
       const token = localStorage.getItem('token');
       const config = { headers: { Authorization: `Token ${token}` } };
-      const response = await axios.put('/api/profile/', formData, config);
+      const response = await axios.put('http://127.0.0.1:8000/api/profile/', formData, config);
+
       // Assume updated user info is returned as "user"
       setUser(response.data.user);
       setIsEditing(false);
@@ -149,17 +153,37 @@ const Profile = () => {
         )}
       </div>
 
-      <div className="profile-products">
+      <div className="profile-list">
         <h2>Your Products</h2>
         {products.length > 0 ? (
           <ul>
             {products.map((product) => (
-              <li key={product.id} className="product-item">
-                <h3>{product.title}</h3>
-                <p>{product.name}</p>
-                <p>${product.price}</p>
-                <p>{product.location}</p>
-              </li>
+              <div 
+                className="frame-8" 
+                key={product.id} 
+                onClick={() => navigate(`/product/${product.id}`)} 
+                style={{ cursor: "pointer" }}
+              >
+                <div className="product-image">
+                  <img
+                    className="image"
+                    alt={product.name}
+                    src={product.image || default_image} // Provide a fallback if needed
+                  />
+                </div>
+                <div className="text-wrapper-12">{product.name}</div>
+                <div className="price">
+                  <div className="text-wrapper-11">${product.price}</div>
+                </div>
+                <div className="post-info">
+                  <span className="post-date">
+                    {new Date(product.created_at).toLocaleDateString()}
+                  </span>
+                  <span className="popularity">
+                    Popularity: {product.popularity}
+                  </span>
+                </div>
+              </div>
             ))}
           </ul>
         ) : (
