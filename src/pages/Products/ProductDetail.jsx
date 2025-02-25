@@ -7,6 +7,7 @@ import '../../assets/styles/Post.css';
 const ProductDetail = () => {
     const { productId } = useParams(); // Get product ID from URL params
     const [product, setProduct] = useState(null);
+    const [popularity, setPopularity] = useState(0);
 
     useEffect(() => {
         fetch(`http://127.0.0.1:8000/product/${productId}/`)
@@ -18,6 +19,26 @@ const ProductDetail = () => {
             .catch(error => console.error('Error fetching product detail:', error));
     }, [productId]);
     console.log(productId)
+
+    const handleSubmit = async () => {
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/increase-popularity/${productId}/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                setPopularity(data.popularity); // Update UI with new popularity count
+            } else {
+                console.error("Error:", data.error);
+            }
+        } catch (error) {
+            console.error("Request failed", error);
+        }
+    };
 
     if (!product) {
         return <p>Loading product details...</p>;
@@ -42,8 +63,9 @@ const ProductDetail = () => {
                     <div className="product-detail__box">
                         <p className="product-detail__description">{product.content}</p>
                         <p className="product-detail__location">Location: {product.location}</p>
+                        <p className="product-detail__popularity">Popularity: {product.popularity}</p>
                     </div>
-                    <button className="product-detail__add-to-cart">Add to Cart</button>
+                    <button className="product-detail__add-to-cart" onClick={handleSubmit}>Hook Em</button>
                 </div>
             </div>
             <Footer />
