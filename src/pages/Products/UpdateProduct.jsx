@@ -80,9 +80,9 @@ const UpdateProduct = () => {
                       />
                   </label>
                   <label>
-                      Location:
+                      Phone:
                       <input
-                          type="text"
+                          type="number"
                           value={location}
                           onChange={(e) => setLocation(e.target.value)}
                           required

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../../assets/styles/ProductService.css';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { SettingsPhone } from '@mui/icons-material';
 
 
 const AddProduct = () => {
@@ -10,7 +11,7 @@ const AddProduct = () => {
     const [content, setContent] = useState('');
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
-    const [location, setLocation] = useState('');
+    const [phone,setPhone] = useState('');
     const [category, setCategory] = useState('');
     // getting the categories options that is already set up in backend
     const [categories, setCategories] = useState([]);
@@ -37,7 +38,7 @@ const AddProduct = () => {
         formData.append('content', content);
         formData.append('name', name);
         formData.append('price', price);
-        formData.append('location', location);
+        formData.append('phone', phone);
         formData.append('category', category);
         if (image) formData.append('image', image);
 
@@ -93,11 +94,16 @@ const AddProduct = () => {
                       />
                   </label>
                   <label>
-                      Location:
+                      Phone:
                       <input
+                      
                           type="text"
-                          value={location}
-                          onChange={(e) => setLocation(e.target.value)}
+                          value={phone}
+                          onChange={(e) => { const value = e.target.value.replace(/\D/g, "");
+                            if(value.length <= 10){
+                                setPhone(value);
+                            }
+                          }}
                           required
                       />
                   </label>
