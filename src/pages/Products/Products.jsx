@@ -228,7 +228,6 @@ const Products = () => {
               <div className="no-products-message">No products available.</div>
             )}
           </div>
-          <Button className="make-post-button" onClick={handleAddPostClick}>Make Post</Button>
         </div>
       </div>
       <Footer />

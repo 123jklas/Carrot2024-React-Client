@@ -1,3 +1,138 @@
 .profile-container {
     padding-top: 80px; /* Adjust this value based on the height of your Navbar */
   }
+
+  /* Profile.css */
+
+/* Container for the profile page */
+.profile-container {
+  padding-top: 66px; /* Adjust for navbar height */
+  background-color: #ffffff;
+  min-height: 100vh;
+  font-family: "Rubik", sans-serif;
+  background-color: #f7f1eb;
+}
+
+/* Profile information section (user details or edit form) */
+.profile-info {
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Styling for profile details (view mode) */
+.profile-details p {
+  margin: 8px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.profile-details strong {
+  font-weight: 700;
+}
+
+/* Profile edit form styling */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profile-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-form .form-group label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.profile-form .form-group input {
+  padding: 10px 15px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: white;
+  transition: border-color 0.3s ease;
+}
+
+.profile-form .form-group input:focus {
+  outline: none;
+  border-color: #555;
+}
+
+/* Buttons container for the form */
+.profile-form-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Profile products section (displaying user's uploaded products) */
+.profile-products {
+  margin: 40px auto;
+  width: 90%;
+  max-width: 1000px;
+}
+
+.profile-products h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* List styling for user products */
+.profile-products ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.profile-products .product-item {
+  border: 1px solid #777;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 280px;
+  padding: 16px;
+  background-color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+}
+
+.profile-products .product-item:hover {
+  cursor: pointer;
+  transform: translateY(-6px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.profile-products .product-item h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.profile-products .product-item p {
+  margin: 4px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .profile-info,
+  .profile-products {
+    width: 95%;
+  }
+}
