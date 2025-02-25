@@ -274,6 +274,35 @@
   text-align: center;
 }
 
+/* Post Info Row (Date & Popularity) */
+.product-list .post-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 14px;
+  color: #666;
+  margin-top: 8px;
+  padding-top: 4px;
+  border-top: 1px solid #eee;
+}
+
+.product-list .post-info .post-date,
+.product-list .post-info .popularity {
+  width: 48%;
+  text-align: center;
+  font-weight: 500;
+}
+
+.product-list .post-info .post-date {
+  color: #333;
+}
+
+.product-list .post-info .popularity {
+  color: #ff6600;
+}
+
+
 .filter-group {
   margin-bottom: 20px; /* 아래 여백 추가 */
 }

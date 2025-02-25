@@ -5,7 +5,7 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
 
-const AddProduct = () => {
+const UpdateProduct = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [name, setName] = useState('');
@@ -16,18 +16,6 @@ const AddProduct = () => {
     const [categories, setCategories] = useState([]);
     const [image, setImage] = useState(null);
     const navigate = useNavigate();
-
-    // Fetch categories from the backend when the component mounts
-    useEffect(() => {
-        fetch('http://127.0.0.1:8000/api/categories/')  // Endpoint to fetch categories
-            .then((response) => response.json())
-            .then((data) => {
-                setCategories(data);  // Set the categories in the state
-            })
-            .catch((error) => {
-                console.error('Error fetching categories:', error);
-            });
-    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -58,7 +46,6 @@ const AddProduct = () => {
     };
 
     return (
-        <div className="add-product-container-container">
         <div className="add-product-container">
           <Navbar />
             <h2>Add New Product</h2>
@@ -132,8 +119,7 @@ const AddProduct = () => {
                   <button onClick={() => navigate('/products')}>Cancel</button>
                 </div>
             </form>
-        </div>
-        <Footer />
+            <Footer />
         </div>
     );
 };
