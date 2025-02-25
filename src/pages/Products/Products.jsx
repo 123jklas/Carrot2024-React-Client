@@ -238,7 +238,12 @@ const Products = () => {
           <div className="product-list-main">
             {filteredProducts.length > 0 ? (
               filteredProducts.map(product => (
-                <div className="frame-8" key={product.id}>
+                <div 
+                  className="frame-8" 
+                  key={product.id} 
+                  onClick={() => navigate(`/product/${product.id}`)} 
+                  style={{ cursor: "pointer" }}
+                >
                   <div className="product-image">
                     <img
                       className="image"
