@@ -1,147 +1,295 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../assets/styles/ProductService.css';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-import { SettingsPhone } from '@mui/icons-material';
-
 
 const AddProduct = () => {
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
-    const [phone,setPhone] = useState('');
-    const [category, setCategory] = useState('');
-    // getting the categories options that is already set up in backend
-    const [categories, setCategories] = useState([]);
-    const [image, setImage] = useState(null);
-    const navigate = useNavigate();
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [phone, setPhone] = useState('');
+  const [category, setCategory] = useState('');
+  const [categories, setCategories] = useState([]);
 
-    // Fetch categories from the backend when the component mounts
-    useEffect(() => {
-        fetch('http://127.0.0.1:8000/api/categories/')  // Endpoint to fetch categories
-            .then((response) => response.json())
-            .then((data) => {
-                setCategories(data);  // Set the categories in the state
-            })
-            .catch((error) => {
-                console.error('Error fetching categories:', error);
-            });
-    }, []);
+  // Main image
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('content', content);
-        formData.append('name', name);
-        formData.append('price', price);
-        formData.append('phone', phone);
-        formData.append('category', category);
-        if (image) formData.append('image', image);
+  // Additional images (up to 5), each item: { file: File, preview: string }
+  const [additionalImages, setAdditionalImages] = useState([]);
 
-        try {
-            const response = await fetch('http://127.0.0.1:8000/products/create/', {
-                method: 'POST',
-                body: formData,
-            });
+  // Refs for hidden file inputs
+  const mainImageInputRef = useRef(null);
+  const additionalImageInputRef = useRef(null);
 
-            if (response.ok) {
-                navigate('/products'); // Redirect to the product list after successful submission
-            } else {
-                console.error('Failed to add product');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
+  const navigate = useNavigate();
+
+  // Fetch categories from the backend
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/api/categories/')
+      .then((response) => response.json())
+      .then((data) => setCategories(data))
+      .catch((error) => console.error('Error fetching categories:', error));
+  }, []);
+
+  /* -----------------------------
+     MAIN IMAGE HANDLERS
+  ------------------------------*/
+  const handleMainImageButtonClick = () => {
+    // Programmatically click the hidden file input
+    if (mainImageInputRef.current) {
+      mainImageInputRef.current.click();
+    }
+  };
+
+  const handleMainImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  /* -----------------------------
+     ADDITIONAL IMAGES HANDLERS
+  ------------------------------*/
+  const handleAdditionalImageButtonClick = () => {
+    if (additionalImages.length >= 5) {
+      alert('You can only upload up to 5 images.');
+      return;
+    }
+    // Programmatically click the hidden file input
+    if (additionalImageInputRef.current) {
+      additionalImageInputRef.current.click();
+    }
+  };
+
+  const handleAdditionalImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // If we already have 5 images, do nothing
+    if (additionalImages.length >= 5) {
+      alert('You can only upload up to 5 images.');
+      return;
+    }
+
+    // Add the new image to the state
+    const newImageObj = {
+      file,
+      preview: URL.createObjectURL(file),
     };
+    setAdditionalImages([...additionalImages, newImageObj]);
 
-    return (
-        <div className="add-product-container-container">
-        <div className="add-product-container">
-          <Navbar />
-            <h2>Add New Product</h2>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="title" className="titleBox">
-                    Post Title:
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                </label>
-                <div className="input-grid">
-                  <label>
-                      Product Name:
-                      <input
-                          type="text"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          required
-                      />
-                  </label>
-                  <label>
-                      Price:
-                      <input
-                          type="number"
-                          step="0.01"
-                          value={price}
-                          onChange={(e) => setPrice(e.target.value)}
-                          required
-                      />
-                  </label>
-                  <label>
-                      Phone:
-                      <input
-                      
-                          type="text"
-                          value={phone}
-                          onChange={(e) => { const value = e.target.value.replace(/\D/g, "");
-                            if(value.length <= 10){
-                                setPhone(value);
-                            }
-                          }}
-                          required
-                      />
-                  </label>
-                  <label>
-                        Category:
-                        <select value={category} onChange={(e) => setCategory(e.target.value)} required>
-                            <option value="">Select a category</option>
-                            {/* Render the fetched categories dynamically */}
-                            {categories.map((cat) => (
-                                <option key={cat.value} value={cat.value}>
-                                    {cat.label}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
-                  <label>
-                      Image:
-                      <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => setImage(e.target.files[0])}
-                      />
-                  </label>
+    // Reset the file input so the same file can be chosen again if needed
+    if (additionalImageInputRef.current) {
+      additionalImageInputRef.current.value = '';
+    }
+  };
+
+  const removeAdditionalImage = (index) => {
+    const updated = [...additionalImages];
+    updated.splice(index, 1);
+    setAdditionalImages(updated);
+  };
+
+  /* -----------------------------
+     FORM SUBMISSION
+  ------------------------------*/
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    formData.append('title', title);
+    formData.append('content', content);
+    formData.append('name', name);
+    formData.append('price', price);
+    formData.append('phone', phone);
+    formData.append('category', category);
+
+    // Append main image if available
+    if (image) {
+      formData.append('image', image);
+    }
+
+    // Append additional images
+    additionalImages.forEach((imgObj) => {
+      formData.append('additional_images', imgObj.file);
+    });
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/products/create/', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        navigate('/products');
+      } else {
+        console.error('Failed to add product');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  return (
+    <div className="add-product-container-container">
+      <Navbar />
+      <div className="add-product-container">
+        <h2>Add New Product</h2>
+        <form onSubmit={handleSubmit}>
+          {/* Post Title */}
+          <label htmlFor="title">Post Title:</label>
+          <input
+            id="title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+
+          {/* Product Name */}
+          <label htmlFor="name">Product Name:</label>
+          <input
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+
+          {/* Category */}
+          <label htmlFor="category">Category:</label>
+          <select
+            id="category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            required
+          >
+            <option value="">Select a category</option>
+            {categories.map((cat) => (
+              <option key={cat.value} value={cat.value}>
+                {cat.label}
+              </option>
+            ))}
+          </select>
+
+          {/* Price */}
+          <label htmlFor="price">Price:</label>
+          <input
+            id="price"
+            type="number"
+            step="0.01"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            required
+          />
+
+          {/* Main Image */}
+          <label htmlFor="image">Main Image:</label>
+          <div className="main-image-actions">
+            <button
+              type="button"
+              onClick={handleMainImageButtonClick}
+              className="secondary-btn"
+            >
+              Add Main Image
+            </button>
+          </div>
+          <input
+            id="image"
+            type="file"
+            accept="image/*"
+            ref={mainImageInputRef}
+            onChange={handleMainImageChange}
+            style={{ display: 'none' }} // hidden
+          />
+
+          {/* Main Image Preview */}
+          {imagePreview && (
+            <div className="image-preview">
+              <img src={imagePreview} alt="Main Preview" />
+            </div>
+          )}
+
+          {/* Additional Images */}
+          <label>Additional Images (up to 5):</label>
+          <div className="additional-image-actions">
+            <button
+              type="button"
+              onClick={handleAdditionalImageButtonClick}
+              className="secondary-btn"
+            >
+              Add Additional Image
+            </button>
+          </div>
+          <input
+            type="file"
+            accept="image/*"
+            ref={additionalImageInputRef}
+            onChange={handleAdditionalImageChange}
+            style={{ display: 'none' }} // hidden
+          />
+
+          {/* Additional Images Preview */}
+          {additionalImages.length > 0 && (
+            <div className="additional-images-preview">
+              {additionalImages.map((imgObj, index) => (
+                <div key={index} className="additional-image-container">
+                  <img src={imgObj.preview} alt={`Additional ${index + 1}`} />
+                  <button
+                    type="button"
+                    className="danger-btn"
+                    onClick={() => removeAdditionalImage(index)}
+                  >
+                    Remove
+                  </button>
                 </div>
-                <label htmlFor="content">
-                    <textarea
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}                    />
-                </label>
-                <div className="button-container">
-                  <button type="submit">Submit Product</button>
-                  <button onClick={() => navigate('/products')}>Cancel</button>
-                </div>
-            </form>
-        </div>
-        <Footer />
-        </div>
-    );
+              ))}
+            </div>
+          )}
+
+          {/* Content */}
+          <label htmlFor="content">Content:</label>
+          <textarea
+            id="content"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
+
+
+
+          {/* Phone */}
+          <label htmlFor="phone">Phone:</label>
+          <input
+            id="phone"
+            type="text"
+            value={phone}
+            onChange={(e) => {
+              const onlyDigits = e.target.value.replace(/\D/g, '');
+              if (onlyDigits.length <= 10) {
+                setPhone(onlyDigits);
+              }
+            }}
+            required
+          />
+
+
+          {/* Buttons */}
+          <div className="button-container">
+            <button type="submit">Submit Product</button>
+            <button type="button" onClick={() => navigate('/products')}>
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+      <Footer />
+    </div>
+  );
 };
 
 export default AddProduct;
