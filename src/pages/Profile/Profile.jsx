@@ -11,6 +11,7 @@ const Profile = () => {
   const navigate = useNavigate()
   const [user, setUser] = useState({});
   const [products, setProducts] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
@@ -31,6 +32,7 @@ const Profile = () => {
         // Assume the response contains "user" and "products"
         setUser(response.data.user);
         setProducts(response.data.products);
+        setFavorites(response.data.favorites);
         setFormData({
           username: response.data.user.username,
           email: response.data.user.email,
@@ -190,7 +192,23 @@ const Profile = () => {
           <p>You haven't uploaded any products yet.</p>
         )}
       </div>
-
+      <div className="profile-favorites">
+        <h2>Your Hooked Products</h2>
+        {favorites.length > 0 ? (
+          <ul>
+            {favorites.map((fav) => (
+              <li key={fav.id} className="product-item">
+                <h3>{fav.title}</h3>
+                <p>{fav.name}</p>
+                <p>${fav.price}</p>
+                <p>{fav.location}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>You haven't hooked any products yet.</p>
+        )}
+      </div>
       <Footer />
     </div>
   );

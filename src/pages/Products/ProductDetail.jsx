@@ -10,11 +10,22 @@ const ProductDetail = () => {
     const [product, setProduct] = useState(null);
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [popularity, setPopularity] = useState(0);
+    const [hasVoted, setHasVoted] = useState(false);
+    const isAuthenticated = !!localStorage.getItem("token");
 
     useEffect(() => {
-        fetch(`http://127.0.0.1:8000/product/${productId}/`)
+        fetch(`http://127.0.0.1:8000/product/${productId}/`, {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("token")}`
+            }
+        })
             .then(response => response.json())
-            .then(data => setProduct(data))
+            .then(data => {
+                console.log("Fetched product data:", data);
+                setProduct(data);
+                setPopularity(data.popularity);
+                setHasVoted(data.voted);
+            })
             .catch(error => console.error('Error fetching product detail:', error));
     }, [productId]);
 
@@ -30,17 +41,23 @@ const ProductDetail = () => {
     };
 
     const handleSubmit = async () => {
+        if (!isAuthenticated) {
+            alert("Please log in to vote!");
+            return;
+        }
         try {
-            const response = await fetch(`http://127.0.0.1:8000/increase-popularity/${productId}/`, {
+            const response = await fetch(`http://127.0.0.1:8000/toggle-popularity/${productId}/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Token ${localStorage.getItem("token")}`
                 },
             });
 
             const data = await response.json();
             if (response.ok) {
-                setPopularity(data.popularity); // Update UI with new popularity count
+                setPopularity(data.popularity);
+                setHasVoted(data.voted);
             } else {
                 console.error("Error:", data.error);
             }
@@ -99,7 +116,9 @@ const ProductDetail = () => {
                             )}
                         </div>
                     </div>
-                    <button className="product-detail__add-to-cart" onClick={handleSubmit}>Hook Em</button>
+                    <button className={`product-detail__add-to-cart ${hasVoted ? 'voted' : ''}`} onClick={handleSubmit}>
+                        {hasVoted ? "Hook Down" : "Hook Up"}
+                    </button>
                 </div>
             </div>
             <Footer />

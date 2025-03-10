@@ -239,6 +239,61 @@
   color: #ff6600;
 }
 
+/* Profile favorites section (displaying user's favorite products) */
+.profile-favorites {
+  margin: 40px auto;
+  width: 90%;
+  max-width: 1000px;
+}
+
+.profile-favorites h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* List styling for user products */
+.profile-favorites ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.profile-favorites .product-item {
+  border: 1px solid #777;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 280px;
+  padding: 16px;
+  background-color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+}
+
+.profile-favorites .product-item:hover {
+  cursor: pointer;
+  transform: translateY(-6px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.profile-favorites .product-item h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.profile-favorites .product-item p {
+  margin: 4px 0;
+  font-size: 16px;
+  color: #555;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .profile-info,
