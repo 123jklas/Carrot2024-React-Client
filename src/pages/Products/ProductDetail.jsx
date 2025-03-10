@@ -9,6 +9,7 @@ const ProductDetail = () => {
     const { productId } = useParams(); // Get product ID from URL params
     const [product, setProduct] = useState(null);
     const [relatedProducts, setRelatedProducts] = useState([]);
+    const [popularity, setPopularity] = useState(0);
 
     useEffect(() => {
         fetch(`http://127.0.0.1:8000/product/${productId}/`)
@@ -26,6 +27,26 @@ const ProductDetail = () => {
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleSubmit = async () => {
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/increase-popularity/${productId}/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                setPopularity(data.popularity); // Update UI with new popularity count
+            } else {
+                console.error("Error:", data.error);
+            }
+        } catch (error) {
+            console.error("Request failed", error);
+        }
     };
 
     if (!product) {
@@ -78,7 +99,7 @@ const ProductDetail = () => {
                             )}
                         </div>
                     </div>
-                    <button className="product-detail__add-to-cart">Add to Cart</button>
+                    <button className="product-detail__add-to-cart" onClick={handleSubmit}>Hook Em</button>
                 </div>
             </div>
             <Footer />

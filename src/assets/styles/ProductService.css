@@ -1,58 +1,40 @@
-/* Main container to center content and keep footer at the bottom */
+/* Container for the entire Add Product page */
+.add-product-container-container {
+  width: 100%;
+}
 
+/* Main container for content */
 .add-product-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; 
-  align-items: center; 
-  padding-top: 4rem; 
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 4rem;
   min-height: 90vh;
   width: 100%;
 }
 
+/* Form styling */
 form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  row-gap: 1rem;
+  column-gap: 2rem;
   width: 100%;
-  max-width: 60rem; 
+  max-width: 60rem;
   padding: 2rem;
 }
 
-label[for="title"], label[for="content"] {
-  width: 100%;
+form label {
+  text-align: right;
+  align-self: center;
   font-weight: bold;
 }
 
-textarea {
-  width: 100%;
-  height: 15rem;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-}
-
-.input-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 equal columns */
-  gap: 2rem; /* Space between items */
-  width: 100%;
-  margin-top: 1rem;
-  max-width: 60rem;
-  justify-content: flex-start;
-}
-
-.input-grid label {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  font-size: 1rem;
-  font-weight: bold;
-  text-align: left;
-}
-
-.input-grid input,
-.input-grid select {
+/* The inputs, selects, and textareas go in the second column */
+form input,
+form select,
+form textarea {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid #ccc;
@@ -60,18 +42,101 @@ textarea {
   font-size: 1rem;
 }
 
-.add-product-container form label {
-  text-align: left; /* Explicitly left-align labels */
+form textarea {
+  height: 8rem;
 }
 
-.button-container {
+/* For the row that has multiple elements (e.g. main image buttons), 
+   we can span them across the second column. */
+.main-image-actions {
+  grid-column: 2;
   display: flex;
   gap: 1rem;
-  margin-top: 2rem;
-  width: 100%;
-  justify-content: flex-end;
+  align-items: center;
 }
 
+/* Additional images add button */
+.additional-image-actions {
+  grid-column: 2;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Buttons that might differ from the primary submit button */
+.secondary-btn {
+  padding: 0.5rem 1rem;
+  background-color: #17a2b8; /* e.g. teal/blue */
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.secondary-btn:hover {
+  background-color: #138496;
+}
+
+.danger-btn {
+  padding: 0.5rem 1rem;
+  background-color: #dc3545; /* red */
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.danger-btn:hover {
+  background-color: #c82333;
+}
+
+/* Main Image Preview */
+.image-preview {
+  grid-column: 2;
+  margin-bottom: 1rem;
+}
+
+.image-preview img {
+  max-width: 200px;
+  max-height: 200px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+/* Additional Images Preview */
+.additional-images-preview {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.additional-image-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.additional-image-container img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Button container spans both columns */
+.button-container {
+  grid-column: 1 / span 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Primary submit & cancel buttons */
 button {
   padding: 0.75rem 2rem;
   background-color: #007bff;
@@ -81,7 +146,6 @@ button {
   border-radius: 0.5rem;
   font-size: 1rem;
 }
-
 button:hover {
   background-color: #0056b3;
 }
