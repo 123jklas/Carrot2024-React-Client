@@ -205,7 +205,7 @@ const Products = () => {
                     cursor: "pointer", 
                     border: "2px solidrgb(170, 169, 169)", // color of the border
                     width: "250px",
-                    height: "250px", 
+                    height: "400px", 
                     borderRadius: "10px", // Rounded corners
                     padding: "20px",
                     margin: "10px",
