@@ -53,7 +53,7 @@ const Navbar = () => {
         </Box>
 
         {/* Center: Navigation Links */}
-        <Box sx={{ display: 'flex', gap: 3 }}>
+        <Box sx={{ display: 'flex', gap: 10 }}>
           <Button
               color="inherit"
               sx={{ color: '#333', fontWeight: 'bold' }}
@@ -61,17 +61,8 @@ const Navbar = () => {
           >
             products
           </Button>
-          <Button component={Link} to="/Business" color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
-            Business
-          </Button>
-          <Button component={Link} to="/Jobs" color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
-            Jobs
-          </Button>
-          <Button component={Link} to="/Realestate" color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
-            Realestate
-          </Button>
-          <Button component={Link} to="/Cars" color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
-            Cars
+          <Button component={Link} to="/About" color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
+            About
           </Button>
         </Box>
 
