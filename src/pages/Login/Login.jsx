@@ -67,7 +67,7 @@ const Login = () => {
           >
             SIGN IN
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, display: 'flex', flexDirection: 'column', height: '100%'  }}>
             <TextField
               margin="normal"
               required
@@ -102,7 +102,7 @@ const Login = () => {
                 sx: { backgroundColor: '#f5f5f5' },
               }}
             />
-            <Box display="flex" alignItems="center" sx={{ mt: 2 }}>
+            <Box display="flex" alignItems="center" sx={{ mt: 2, whiteSpace: 'nowrap'}}>
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Keep me signed in"
