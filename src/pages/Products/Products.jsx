@@ -201,15 +201,32 @@ const Products = () => {
                   className="frame-8" 
                   key={product.id} 
                   onClick={() => navigate(`/product/${product.id}`)} 
-                  style={{ cursor: "pointer" }}
-                >
-                  <div className="product-image">
-                    <img
-                      className="image"
-                      alt={product.name}
-                      src={product.image || default_image} // Provide a fallback if needed
+                  style={{ 
+                    cursor: "pointer", 
+                    border: "2px solidrgb(170, 169, 169)", // color of the border
+                    width: "250px",
+                    height: "250px", 
+                    borderRadius: "10px", // Rounded corners
+                    padding: "20px",
+                    margin: "10px",
+                    boxShadow: "2px 2px 10px rgba(0, 0, 0, 0.1)", // Optional shadow
+                    transition: "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1)"
+                  }}
+                   onMouseEnter={(e) => e.currentTarget.style.border = "2px solid rgb(238, 126, 106)"} // Changes border color on hover
+                   onMouseLeave={(e) => e.currentTarget.style.border = "2px solid rgb(170, 169, 169)"} // Resets border color when mouse leaves
+                  > 
+                  <div 
+                  className="product-image" 
+                  style={{ width: "250px", height: "220px", overflow: "hidden", display: "flex", justifyContent: "center", alignItems: "center" }}
+                  >
+                     <img
+                        className="image"
+                        alt={product.name}
+                        src={product.image || default_image}
+                        style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "10px" }}
                     />
-                  </div>
+                    </div>
+
                   <div className="text-wrapper-12">{product.name}</div>
                   <div className="price">
                     <div className="text-wrapper-11">${product.price}</div>
