@@ -128,9 +128,30 @@ const AddProduct = () => {
       if (response.ok) {
         navigate('/products');
       } else {
-        console.error('Failed to add product');
+        // Parse the error response JSON and extract messages
+      let errorMessage = 'Failed to add product. Please try again.';
+      try {
+        const errorData = await response.json();
+        const errorMessages = [];
+        // Loop through each field in the error response
+        for (const key in errorData) {
+          if (Array.isArray(errorData[key])) {
+            errorMessages.push(...errorData[key]);
+          } else {
+            errorMessages.push(errorData[key]);
+          }
+        }
+        if (errorMessages.length > 0) {
+          errorMessage = errorMessages.join(' ');
+        }
+      } catch (jsonError) {
+        console.error('Error parsing error response:', jsonError);
       }
+      alert('Error: ' + errorMessage);
+      console.error('Failed to add product:', errorMessage);
+    }
     } catch (error) {
+      alert('Error: ' + error.message);
       console.error('Error:', error);
     }
   };
