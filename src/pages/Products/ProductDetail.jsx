@@ -6,13 +6,20 @@ import '../../assets/styles/Post.css'
 import defaultImage from '../../assets/images/default.png'
 
 const ProductDetail = () => {
-  const { productId } = useParams() // Get product ID from URL params
+  const { productId } = useParams()
   const [product, setProduct] = useState(null)
-  const [mainImage, setMainImage] = useState(null) // State for main image
+
+  const [mainImage, setMainImage] = useState(null) // State for main image display
   const [relatedProducts, setRelatedProducts] = useState([])
   const [popularity, setPopularity] = useState(0)
   const [hasVoted, setHasVoted] = useState(false)
   const isAuthenticated = !!localStorage.getItem('token')
+
+
+  // Example placeholders for phone, seller name, and views
+  const [phone, setPhone] = useState('000-000-0000')
+  const [sellerName, setSellerName] = useState('ChaeTae')
+  const [views, setViews] = useState(373)
 
   // Fetch product details
   useEffect(() => {
@@ -23,20 +30,18 @@ const ProductDetail = () => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Fetched product data:', data)
         setProduct(data)
         setPopularity(data.popularity)
         setHasVoted(data.voted)
+        // Set the main image once the product data is loaded
+        setMainImage(data.image)
+        // Uncomment these if your API provides additional data
+        // setPhone(data.phone)
+        // setSellerName(data.seller_name)
+        // setViews(data.views)
       })
       .catch(error => console.error('Error fetching product detail:', error))
   }, [productId])
-
-  // When product data is loaded, initialize the main image to the product image
-  useEffect(() => {
-    if (product) {
-      setMainImage(product.image)
-    }
-  }, [product])
 
   // Fetch related products
   useEffect(() => {
@@ -64,7 +69,7 @@ const ProductDetail = () => {
             'Content-Type': 'application/json',
             Authorization: `Token ${localStorage.getItem('token')}`,
           },
-        },
+        }
       )
 
       const data = await response.json()
@@ -92,87 +97,113 @@ const ProductDetail = () => {
   return (
     <div className="product-detail-container">
       <Navbar />
-      <div className="product-detail">
-        <div className="product-detail__image-container">
-          <img
-            src={getImageUrl(mainImage)}
-            alt={product.title}
-            className="product-detail__image"
-            // Optional: clicking the main image resets it to the product's original image
-            onClick={() => setMainImage(product.image)}
-          />
+
+      {/* Main content area */}
+      <div className="product-detail-content">
+        {/* LEFT: Images column (main image + additional images) */}
+        <div className="image-column">
+          <div className="image-section">
+            <img
+              src={getImageUrl(mainImage)}
+              alt={product.title}
+              className="main-product-image"
+              // Optional: clicking the main image resets it to the original product image
+              onClick={() => setMainImage(product.image)}
+            />
+
+            {product.additional_images && product.additional_images.length > 0 && (
+              <div className="vertical-additional-images">
+                {/* Optional: display the original image as a thumbnail */}
+                <img
+                  key="original"
+                  src={getImageUrl(product.image)}
+                  alt="Original"
+                  className="additional-image"
+                  onClick={() => setMainImage(product.image)}
+                />
+                {/* Map over additional images */}
+                {product.additional_images.map((img, index) => (
+                  <img
+                    key={index}
+                    src={getImageUrl(img.image)}
+                    alt={`Additional ${index + 1}`}
+                    className="additional-image"
+                    onClick={() => setMainImage(img.image)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-        {/* Additional Images List */}
-        <div className="product-detail__additional-images">
-          {/* Show the original image as the first thumbnail */}
-          <img
-            key="original"
-            src={getImageUrl(product.image)}
-            alt="Original"
-            className="product-detail__additional-image"
-            onClick={() => setMainImage(product.image)}
-          />
-          {/* Map over additional images (if any) */}
-          {product.additional_images && product.additional_images.length > 0 && 
-            product.additional_images.map((img, index) => (
-              <img
-                key={index}
-                src={getImageUrl(img.image)}
-                alt={`Additional ${index + 1}`}
-                className="product-detail__additional-image"
-                onClick={() => setMainImage(img.image)}
-              />
-            ))
-          }
-        </div>
-        <div className="product-detail__info">
-          <h1 className="product-detail__title">{product.title}</h1>
-          <span className="product-detail__meta">
-            <span className="product-detail__date">
-              {new Date(product.created_at).toLocaleDateString()}
-            </span>{' '}
-            |
-            <span className="product-detail__category">{product.category}</span>
-          </span>
-          <p className="product-detail__price">${product.price}</p>
-          <p className="product-detail__description">{product.content}</p>
-          <p className="product-detail__location">
-            Location: {product.location}
-          </p>
-          <div className="related-products">
-            <h2>Related Products</h2>
-            <div className="related-products__list">
-              {relatedProducts.length > 0 ? (
-                relatedProducts.map(relatedProduct => (
-                  <Link
-                    key={relatedProduct.id}
-                    to={`/product/${relatedProduct.id}`}
-                    className="related-product-item"
-                    onClick={scrollToTop}
-                    style={{ textDecoration: 'none', color: 'inherit' }}
-                  >
-                    <img
-                      src={getImageUrl(relatedProduct.image)}
-                      alt={relatedProduct.title}
-                      className="related-product-image"
-                    />
-                    <h3>{relatedProduct.title}</h3>
-                    <p>${relatedProduct.price}</p>
-                  </Link>
-                ))
-              ) : (
-                <p>No related products found.</p>
-              )}
+
+        {/* RIGHT: Seller info, product details, Hook Up button */}
+        <div className="info-column">
+          <div className="seller-info">
+            <img
+              src="https://via.placeholder.com/50x50.png?text=S"
+              alt="Seller Avatar"
+              className="seller-avatar"
+            />
+            <div className="seller-name">{sellerName}</div>
+          </div>
+
+          <h1 className="selling-title">Selling {product.title}</h1>
+          <div className="product-price">${product.price}</div>
+          <div className="product-phone">{phone}</div>
+
+          <div className="beige-box">
+            <p className="product-description">{product.content}</p>
+            <div className="product-stats">
+              <span>{views} Views</span>
+              <span>{popularity} Likes</span>
+
             </div>
           </div>
-          <button
-            className={`product-detail__add-to-cart ${hasVoted ? 'voted' : ''}`}
-            onClick={handleSubmit}
-          >
+
+          <button className="hook-up-button" onClick={handleSubmit}>
             {hasVoted ? 'Hook Down' : 'Hook Up'}
           </button>
         </div>
       </div>
+
+      {/* Related products section */}
+      <div className="related-products-section">
+        <h2>Products related to this item:</h2>
+        <div className="orange-divider"></div>
+        <div className="related-products-grid">
+          {relatedProducts.length > 0 ? (
+            relatedProducts.map(relatedProduct => (
+              <Link
+                key={relatedProduct.id}
+                to={`/product/${relatedProduct.id}`}
+                className="related-product-card"
+                onClick={scrollToTop}
+              >
+                <img
+                  src={
+                    relatedProduct.image
+                      ? relatedProduct.image.startsWith('http')
+                        ? relatedProduct.image
+                        : `http://127.0.0.1:8000${relatedProduct.image}`
+                      : defaultImage
+                  }
+                  alt={relatedProduct.title}
+                  className="related-product-image"
+                />
+                <div className="related-product-title">
+                  {relatedProduct.title}
+                </div>
+                <div className="related-product-price">
+                  ${relatedProduct.price}
+                </div>
+              </Link>
+            ))
+          ) : (
+            <p>No related products found.</p>
+          )}
+        </div>
+      </div>
+
       <Footer />
     </div>
   )
