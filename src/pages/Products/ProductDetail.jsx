@@ -8,11 +8,13 @@ import defaultImage from '../../assets/images/default.png'
 const ProductDetail = () => {
   const { productId } = useParams() // Get product ID from URL params
   const [product, setProduct] = useState(null)
+  const [mainImage, setMainImage] = useState(null) // State for main image
   const [relatedProducts, setRelatedProducts] = useState([])
   const [popularity, setPopularity] = useState(0)
   const [hasVoted, setHasVoted] = useState(false)
   const isAuthenticated = !!localStorage.getItem('token')
 
+  // Fetch product details
   useEffect(() => {
     fetch(`http://127.0.0.1:8000/product/${productId}/`, {
       headers: {
@@ -29,6 +31,14 @@ const ProductDetail = () => {
       .catch(error => console.error('Error fetching product detail:', error))
   }, [productId])
 
+  // When product data is loaded, initialize the main image to the product image
+  useEffect(() => {
+    if (product) {
+      setMainImage(product.image)
+    }
+  }, [product])
+
+  // Fetch related products
   useEffect(() => {
     fetch(`http://127.0.0.1:8000/api/products/${productId}/related/`)
       .then(response => response.json())
@@ -73,39 +83,48 @@ const ProductDetail = () => {
     return <p>Loading product details...</p>
   }
 
+  // Helper function to get the proper image URL
+  const getImageUrl = (img) => {
+    if (!img) return defaultImage
+    return img.startsWith('http') ? img : `http://127.0.0.1:8000${img}`
+  }
+
   return (
     <div className="product-detail-container">
       <Navbar />
       <div className="product-detail">
         <div className="product-detail__image-container">
           <img
-            src={
-              product.image
-                ? product.image.startsWith('http')
-                  ? product.image
-                  : `http://127.0.0.1:8000${product.image}`
-                : defaultImage
-            }
+            src={getImageUrl(mainImage)}
             alt={product.title}
             className="product-detail__image"
+            // Optional: clicking the main image resets it to the product's original image
+            onClick={() => setMainImage(product.image)}
           />
         </div>
-        {product.additional_images && product.additional_images.length > 0 && (
-          <div className="product-detail__additional-images">
-            {product.additional_images.map((img, index) => (
+        {/* Additional Images List */}
+        <div className="product-detail__additional-images">
+          {/* Show the original image as the first thumbnail */}
+          <img
+            key="original"
+            src={getImageUrl(product.image)}
+            alt="Original"
+            className="product-detail__additional-image"
+            onClick={() => setMainImage(product.image)}
+          />
+          {/* Map over additional images (if any) */}
+          {product.additional_images && product.additional_images.length > 0 && 
+            product.additional_images.map((img, index) => (
               <img
                 key={index}
-                src={
-                  img.image.startsWith('http')
-                    ? img.image
-                    : `http://127.0.0.1:8000${img.image}`
-                }
+                src={getImageUrl(img.image)}
                 alt={`Additional ${index + 1}`}
                 className="product-detail__additional-image"
+                onClick={() => setMainImage(img.image)}
               />
-            ))}
-          </div>
-        )}
+            ))
+          }
+        </div>
         <div className="product-detail__info">
           <h1 className="product-detail__title">{product.title}</h1>
           <span className="product-detail__meta">
@@ -133,13 +152,7 @@ const ProductDetail = () => {
                     style={{ textDecoration: 'none', color: 'inherit' }}
                   >
                     <img
-                      src={
-                        relatedProduct.image
-                          ? relatedProduct.image.startsWith('http')
-                            ? relatedProduct.image
-                            : `http://127.0.0.1:8000${relatedProduct.image}`
-                          : defaultImage
-                      }
+                      src={getImageUrl(relatedProduct.image)}
                       alt={relatedProduct.title}
                       className="related-product-image"
                     />
