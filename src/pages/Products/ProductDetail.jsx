@@ -8,11 +8,13 @@ import defaultImage from '../../assets/images/default.png'
 const ProductDetail = () => {
   const { productId } = useParams()
   const [product, setProduct] = useState(null)
+
   const [mainImage, setMainImage] = useState(null) // State for main image display
   const [relatedProducts, setRelatedProducts] = useState([])
   const [popularity, setPopularity] = useState(0)
   const [hasVoted, setHasVoted] = useState(false)
   const isAuthenticated = !!localStorage.getItem('token')
+
 
   // Example placeholders for phone, seller name, and views
   const [phone, setPhone] = useState('000-000-0000')
@@ -154,6 +156,7 @@ const ProductDetail = () => {
             <div className="product-stats">
               <span>{views} Views</span>
               <span>{popularity} Likes</span>
+
             </div>
           </div>
 
