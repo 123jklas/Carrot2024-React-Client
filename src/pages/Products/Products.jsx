@@ -5,9 +5,7 @@ import RangeSlider from './slider';
 import Footer from '../../components/Footer';
 import default_image from '../../assets/images/default.png';
 import { useNavigate } from 'react-router-dom';
-import {
-  Button,
-} from '@mui/material';
+import { Button } from '@mui/material';
 
 const Products = () => {
   const navigate = useNavigate()
@@ -15,6 +13,7 @@ const Products = () => {
   // State management for filters
   const [category, setCategory] = useState('');
   const [priceRange, setPriceRange] = useState([0, 500]);
+  const [maxPrice, setMaxPrice] = useState(500);
   // // const [locations, setLocations] = useState({
   // //   gregoryGym: false,
   // //   eer: false,
@@ -45,7 +44,7 @@ const Products = () => {
 
   // Handler for price range change
   const handlePriceChange = (event, newValue) => {
-    const minDistance = 35; // Define the minimum distance
+    const minDistance = Math.ceil(0.07 * maxPrice); // Define the minimum distance
   
     // Enforce minimum distance between the two values
     if (newValue[1] - newValue[0] >= minDistance) {
@@ -71,12 +70,12 @@ const Products = () => {
   // };
 
   // Handler for applying filters
-  const applyFilters = () => {
+  const applyFilters = (filterData) => {
     // // Get keys for checked locations and map them to expected strings.
     // const selectedKeys = Object.keys(locations).filter(key => locations[key]);
     // const selectedLocations = selectedKeys.map(key => locationMapping[key]);
 
-    const filterData = {
+    const filters = filterData || {
       category,
       priceRange,
       // locations: selectedLocations,
@@ -88,7 +87,7 @@ const Products = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(filterData),
+      body: JSON.stringify(filters),
     })
       .then(response => {
         if (!response.ok) {
@@ -109,9 +108,21 @@ const Products = () => {
     navigate('/add-product')
   };
 
-  // Fetch all products when the component mounts
   useEffect(() => {
-    applyFilters();
+    fetch('http://127.0.0.1:8000/api/max-price/')
+      .then(response => response.json())
+      .then(data => {
+        const max = Math.ceil(Number(data.max_price) / 100) * 100
+        setMaxPrice(max);
+        setPriceRange([0, max]); // Update priceRange with the new max price
+        const filterData = {
+          category,
+          priceRange: [0, max],
+          sortBy: sortOption,
+        };
+        applyFilters(filterData);
+      })
+      .catch(error => console.error('Error fetching max price:', error));
   }, []);
 
   return (
@@ -159,7 +170,7 @@ const Products = () => {
                   value={priceRange}
                   onChange={handlePriceChange}
                   min={0}
-                  max={500}
+                  max={maxPrice}
                 />
                 <div className="price-values">
                   <span>${priceRange[0]}</span>
@@ -181,7 +192,7 @@ const Products = () => {
 
               {/* Apply Filter Button */}
               <div className="apply-filter-container">
-                <button className="apply-filter-button" onClick={applyFilters}>
+                <button className="apply-filter-button" onClick={() => applyFilters()}>
                   Apply Filters
                 </button>
               </div>
