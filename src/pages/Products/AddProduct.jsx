@@ -119,9 +119,14 @@ const AddProduct = () => {
       formData.append('additional_images', imgObj.file);
     });
 
+    const token = localStorage.getItem('token');
+
     try {
       const response = await fetch('http://127.0.0.1:8000/products/create/', {
         method: 'POST',
+        headers: {
+          Authorization: `Token ${token}`
+        },
         body: formData,
       });
 

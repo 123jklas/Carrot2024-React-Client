@@ -1,59 +1,121 @@
-import React, { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import Navbar from '../../components/Navbar'
-import Footer from '../../components/Footer'
-import '../../assets/styles/Post.css'
-import defaultImage from '../../assets/images/default.png'
+import React, { useState, useEffect } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import Navbar from '../../components/Navbar'; 
+import Footer from '../../components/Footer';
+import '../../assets/styles/Post.css';
+import defaultImage from '../../assets/images/default.png';
 
 const ProductDetail = () => {
-  const { productId } = useParams()
-  const [product, setProduct] = useState(null)
+    const { productId } = useParams();
+    const navigate = useNavigate();
+    const [product, setProduct] = useState(null);
+    const [mainImage, setMainImage] = useState(null) // State for main image display
+    const [relatedProducts, setRelatedProducts] = useState([]);
+    const [popularity, setPopularity] = useState(0);
+    const [hasVoted, setHasVoted] = useState(false);
+    const [loggedInUser, setLoggedInUser] = useState(null);
+    const isAuthenticated = !!localStorage.getItem("token");
 
-  const [mainImage, setMainImage] = useState(null) // State for main image display
-  const [relatedProducts, setRelatedProducts] = useState([])
-  const [popularity, setPopularity] = useState(0)
-  const [hasVoted, setHasVoted] = useState(false)
-  const isAuthenticated = !!localStorage.getItem('token')
-
-
-  // Example placeholders for phone, seller name, and views
+      // Example placeholders for phone, seller name, and views
   const [phone, setPhone] = useState('000-000-0000')
   const [sellerName, setSellerName] = useState('ChaeTae')
   const [views, setViews] = useState(373)
 
-  // Fetch product details
-  useEffect(() => {
-    fetch(`http://127.0.0.1:8000/product/${productId}/`, {
-      headers: {
-        Authorization: `Token ${localStorage.getItem('token')}`,
-      },
-    })
-      .then(response => response.json())
-      .then(data => {
-        setProduct(data)
-        setPopularity(data.popularity)
-        setHasVoted(data.voted)
-        // Set the main image once the product data is loaded
-        setMainImage(data.image)
-        // Uncomment these if your API provides additional data
-        //setPhone(data.phone)
-        setSellerName(data.seller_name)
-        setViews(data.views)
-      })
-      .catch(error => console.error('Error fetching product detail:', error))
-  }, [productId])
 
-  // Fetch related products
-  useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/products/${productId}/related/`)
-      .then(response => response.json())
-      .then(data => setRelatedProducts(data))
-      .catch(error => console.error('Error fetching related products:', error))
-  }, [productId])
+    // Fetch logged-in user from custom backend endpoint
+    useEffect(() => {
+        const fetchUser = async () => {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                console.warn("No authentication token found, skipping user fetch.");
+                return;
+            }
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+            try {
+                const response = await fetch("http://127.0.0.1:8000/api/user/", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Token ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                if (!response.ok) {
+                    console.error(`User fetch failed: ${response.status} ${response.statusText}`);
+                    return;
+                }
+
+                const data = await response.json();
+                setLoggedInUser(data.username);
+            } catch (error) {
+                console.error("Network error fetching logged-in user:", error);
+            }
+        };
+
+        fetchUser();
+    }, []);
+
+    // Fetch product details
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        fetch(`http://127.0.0.1:8000/product/${productId}/`, {
+            headers: token ? { "Authorization": `Token ${token}` } : {},
+        })
+            .then(response => response.json())
+            .then(data => {
+                setProduct(data)
+                setPopularity(data.popularity)
+                setHasVoted(data.voted)
+                // Set the main image once the product data is loaded
+                setMainImage(data.image)
+                // Uncomment these if your API provides additional data
+                //setPhone(data.phone)
+                setSellerName(data.seller_name)
+                setViews(data.views)
+            })
+            .catch(error => console.error("Error fetching product detail:", error));
+    }, [productId]);
+
+    // Fetch related products
+    useEffect(() => {
+        fetch(`http://127.0.0.1:8000/api/products/${productId}/related/`)
+            .then(response => response.json())
+            .then(data => setRelatedProducts(data))
+            .catch(error => console.error("Error fetching related products:", error));
+    }, [productId]);
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    const handleDelete = () => {
+        if (!isAuthenticated) {
+          alert("You must be logged in to delete a product.");
+          return;
+        }
+      
+        if (window.confirm("Are you sure you want to delete this product?")) {
+            fetch(`http://127.0.0.1:8000/products/delete/${productId}/`, { 
+            method: "DELETE",
+            headers: {
+              "Authorization": `Token ${localStorage.getItem("token")}`,
+            },
+          })
+            .then(async (response) => {
+              if (!response.ok) {
+                const errorText = await response.text();
+                console.error("Deleting product failed:", response.status, errorText);
+                throw new Error("Failed to delete product");
+              }
+
+              const text = await response.text();
+              const data = text ? JSON.parse(text): {};
+              alert(data.message || "Product deleted successfully.");
+              navigate("/products");
+            })
+            .catch(error => console.error("Error:", error));
+        }
+      };      
 
   const handleSubmit = async () => {
     if (!isAuthenticated) {
@@ -164,6 +226,14 @@ const ProductDetail = () => {
           <button className="hook-up-button" onClick={handleSubmit}>
             {hasVoted ? 'Hook Down' : 'Hook Up'}
           </button>
+
+          
+          {/* Only show delete button if logged-in user is the product owner */}
+            {loggedInUser && product.user && loggedInUser === product.user && (
+              <button className="product-detail__delete" onClick={handleDelete}>
+                Delete Product
+              </button>
+          )}
         </div>
       </div>
 
