@@ -36,9 +36,9 @@ const ProductDetail = () => {
         // Set the main image once the product data is loaded
         setMainImage(data.image)
         // Uncomment these if your API provides additional data
-        // setPhone(data.phone)
-        // setSellerName(data.seller_name)
-        // setViews(data.views)
+        //setPhone(data.phone)
+        setSellerName(data.seller_name)
+        setViews(data.views)
       })
       .catch(error => console.error('Error fetching product detail:', error))
   }, [productId])
@@ -95,6 +95,7 @@ const ProductDetail = () => {
   }
 
   return (
+    <div className="product-detail-container-container">
     <div className="product-detail-container">
       <Navbar />
 
@@ -140,7 +141,7 @@ const ProductDetail = () => {
         <div className="info-column">
           <div className="seller-info">
             <img
-              src="https://via.placeholder.com/50x50.png?text=S"
+              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
               alt="Seller Avatar"
               className="seller-avatar"
             />
@@ -203,8 +204,8 @@ const ProductDetail = () => {
           )}
         </div>
       </div>
-
-      <Footer />
+    </div>
+    <Footer />
     </div>
   )
 }
