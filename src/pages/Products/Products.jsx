@@ -4,11 +4,13 @@ import '../../assets/styles/Products.css';
 import RangeSlider from './slider';
 import Footer from '../../components/Footer';
 import default_image from '../../assets/images/default.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 const Products = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get('search') || '';
 
   // State management for filters
   const [category, setCategory] = useState('');
@@ -80,6 +82,7 @@ const Products = () => {
       priceRange,
       // locations: selectedLocations,
       sortBy: sortOption,
+      search: searchQuery,
     };
 
     fetch('http://127.0.0.1:8000/api/filter-products/', {
@@ -115,15 +118,19 @@ const Products = () => {
         const max = Math.ceil(Number(data.max_price) / 100) * 100
         setMaxPrice(max);
         setPriceRange([0, max]); // Update priceRange with the new max price
-        const filterData = {
-          category,
-          priceRange: [0, max],
-          sortBy: sortOption,
-        };
-        applyFilters(filterData);
       })
       .catch(error => console.error('Error fetching max price:', error));
   }, []);
+
+  useEffect(() => {
+    const filterData = {
+      category,
+      priceRange,
+      sortBy: sortOption,
+      search: searchQuery,
+    };
+    applyFilters(filterData);
+  }, [category, priceRange, sortOption, searchQuery]);
 
   return (
     <div className="products-container">
