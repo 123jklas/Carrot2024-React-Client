@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   AppBar,
   Toolbar,
@@ -14,6 +14,7 @@ import carrot from '../assets/images/carrot.png'
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
+  const [searchQuery, setSearchQuery] = useState('')
   const navigate = useNavigate()
   const handleProfileClick = () => {
     navigate('/profile/')
@@ -24,6 +25,12 @@ const Navbar = () => {
   const handleProductsClick = () => {
     navigate('/products/')
   }
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    // Navigate to the Products page with the search query as a URL parameter.
+    navigate(`/products?search=${encodeURIComponent(searchQuery)}`);
+  };
+
   return (
     <AppBar
       position="fixed"
@@ -68,10 +75,35 @@ const Navbar = () => {
 
         {/* Right side: Search bar and button */}
         <Box display="flex" alignItems="center">
+          {/* <form onSubmit={handleSearchSubmit}>
+            <TextField
+              variant="outlined"
+              placeholder="Search"
+              size="small"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              sx={{ bgcolor: '#f7f7f7', borderRadius: '5px', mr: 2 }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </form> */}
           <TextField
             variant="outlined"
             placeholder="Search"
             size="small"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                // e.preventDefault();
+                handleSearchSubmit(e);
+              }
+            }}
             sx={{ bgcolor: '#f7f7f7', borderRadius: '5px', mr: 2 }}
             InputProps={{
               startAdornment: (
@@ -84,7 +116,6 @@ const Navbar = () => {
           <div>
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="circle" onClick={handleProfileClick}/>
           </div>
-          
         </Box>
       </Toolbar>
     </AppBar>
