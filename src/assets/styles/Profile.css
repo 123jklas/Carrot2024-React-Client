@@ -1,303 +1,175 @@
-.profile-container {
-    padding-top: 80px; /* Adjust this value based on the height of your Navbar */
-  }
-
-  /* Profile.css */
-
-/* Container for the profile page */
-.profile-container {
-  padding-top: 66px; /* Adjust for navbar height */
-  background-color: #ffffff;
-  min-height: 100vh;
+/* Base Layout */
+.profile-layout {
   font-family: "Rubik", sans-serif;
   background-color: #f7f1eb;
+  min-height: 100vh;
 }
 
-/* Profile information section (user details or edit form) */
-.profile-info {
-  border-radius: 16px;
-  padding: 20px;
-  margin: 20px auto;
-  width: 90%;
-  max-width: 600px;
-}
-
-.profile-details {
+.content-wrapper {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
+  margin-top: 5rem;
+  padding: 1.25rem;
 }
 
-/* Styling for profile details (view mode) */
-.profile-details p {
-  margin: 8px 0;
-  font-size: 16px;
-  color: #333;
-}
-
-/* Styling for profile details (view mode) */
-.profile-details button {
-  width: 10%;
-  font-size: 10px;
-}
-
-.profile-details strong {
-  font-weight: 700;
-}
-
-/* Profile edit form styling */
-.profile-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: center;
-}
-
-.profile-form .form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.profile-form .form-group label {
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 4px;
-}
-
-.profile-form .form-group input {
-  padding: 10px 15px;
-  border: 2px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  background-color: white;
-  transition: border-color 0.3s ease;
-}
-
-.profile-form .form-group input:focus {
-  outline: none;
-  border-color: #555;
-}
-
-/* Buttons container for the form */
-.profile-form-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-/* Profile products section (displaying user's uploaded products) */
-.profile-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.profile-products h2 {
-  font-size: 24px;
-  font-weight: 700;
-  color: #000;
-  margin-bottom: 20px;
+/* Sidebar */
+.sidebar {
+  width: 17.5rem;
+  background-color: #fff4e6;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
   text-align: center;
+  margin-right: 1.5rem;
+  box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.05);
 }
 
-/* List styling for user products */
-.profile-products ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
-
-.profile-products .product-item {
-  border: 1px solid #777;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  width: 280px;
-  padding: 16px;
-  background-color: #fff;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  text-align: center;
-}
-
-.profile-products .product-item:hover {
-  cursor: pointer;
-  transform: translateY(-6px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.profile-products .product-item h3 {
-  font-size: 18px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 8px;
-}
-
-.profile-products .product-item p {
-  margin: 4px 0;
-  font-size: 16px;
-  color: #555;
-}
-
-
-/* 
-  For each product card 
-  (we'll apply similar styles to .frame-8 and .frame-9):
-*/
-.profile-list .frame-8,
-.profile-list .frame-9 {
-  border-radius: 12px;
-  border: #777 solid 1px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Subtle card shadow */
-  width: 280px;             /* Fixed or max width for each card */
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-/* Hover effect for each product card */
-.profile-list .frame-8:hover,
-.profile-list .frame-9:hover {
-  cursor: pointer;
-  transform: translateY(-6px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* --- Image Wrapper --- */
-.profile-list .product-image {
-  width: 100%;
-  background-color: #f0eeed;
-  border-radius: 12px;
-  overflow: hidden;       /* Ensures corners of the image are clipped */
-  margin-bottom: 16px;    /* Spacing below the image */
-}
-
-.profile-list .image {
-  width: 100%;
-  height: auto;
+.profile-pic {
+  width: 7.5rem;
+  height: 7.5rem;
   object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.username {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1c3b2c;
+  margin-bottom: 0.25rem;
+}
+
+.email, .phone {
+  font-size: 0.875rem;
+  color: #444;
+  margin-bottom: 0.375rem;
   display: block;
 }
 
-/* --- Product Name --- */
-.profile-list .text-wrapper-12 {
-  font-size: 18px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 8px;
-  text-align: center;
+.edit-btn {
+  margin: 0.75rem 0;
+  font-size: 0.875rem;
 }
 
-/* --- Price Row --- */
-.profile-list .price {
-  margin-bottom: 8px;
+.sidebar-nav {
+  margin-top: 1.25rem;
+  text-align: left;
 }
 
-.profile-list .price .text-wrapper-11 {
-  font-size: 20px;
-  font-weight: 700;
-  color: #ff6600; /* Accent color for the price */
-}
-
-/* --- Location text --- */
-.profile-list .text-wrapper-10 {
-  font-size: 14px;
-  font-weight: 400;
-  color: #666;
-  text-align: center;
-}
-
-/* Post Info Row (Date & Popularity) */
-.profile-list .post-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  font-size: 14px;
-  color: #666;
-  margin-top: 8px;
-  padding-top: 4px;
-  border-top: 1px solid #eee;
-}
-
-.profile-list .post-info .post-date,
-.profile-list .post-info .popularity {
-  width: 48%;
-  text-align: center;
+.sidebar-nav p {
+  font-size: 1rem;
   font-weight: 500;
+  color: #1c3b2c;
+  margin: 0.625rem 0;
+  cursor: pointer;
 }
 
-.profile-list .post-info .post-date {
-  color: #333;
+.sidebar-nav p:hover {
+  text-decoration: underline;
 }
 
-.profile-list .post-info .popularity {
+.sidebar-nav .active {
+  font-weight: bold;
+  text-decoration: underline;
   color: #ff6600;
 }
 
-/* Profile favorites section (displaying user's favorite products) */
-.profile-favorites {
-  margin: 40px auto;
-  width: 90%;
-  max-width: 1000px;
+/* Main Content */
+.main-content {
+  flex: 1;
+  background-color: #fffaf2;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.05);
 }
 
-.profile-favorites h2 {
-  font-size: 24px;
+.section-title {
+  font-size: 1.5rem;
   font-weight: 700;
-  color: #000;
-  margin-bottom: 20px;
+  margin: 1.25rem 0 0.75rem;
+  color: #1c3b2c;
   text-align: center;
 }
 
-/* List styling for user products */
-.profile-favorites ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+/* Grid of Cards */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
   justify-content: center;
 }
 
-.profile-favorites .product-item {
-  border: 1px solid #777;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  width: 280px;
-  padding: 16px;
-  background-color: #fff;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.product-card {
+  width: 12.5rem;
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1rem;
   text-align: center;
-}
-
-.profile-favorites .product-item:hover {
+  box-shadow: 0 0.0625rem 0.375rem rgba(0,0,0,0.05);
+  transition: 0.2s ease;
   cursor: pointer;
-  transform: translateY(-6px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.profile-favorites .product-item h3 {
-  font-size: 18px;
-  font-weight: 600;
+.product-card:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,0.1);
+}
+
+.product-card img {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.product-card h4 {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
   color: #333;
-  margin-bottom: 8px;
 }
 
-.profile-favorites .product-item p {
-  margin: 4px 0;
-  font-size: 16px;
-  color: #555;
+.product-card .price {
+  font-weight: 600;
+  color: #ff6600;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .profile-info,
-  .profile-products {
-    width: 95%;
+/* Edit Form */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.edit-form input {
+  padding: 0.625rem 0.875rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.edit-form button {
+  align-self: flex-start;
+}
+
+/* Responsive */
+@media (max-width: 48rem) {
+  .content-wrapper {
+    flex-direction: column;
+    padding: 0.625rem;
+  }
+
+  .sidebar {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 1.25rem;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    justify-content: center;
   }
 }
