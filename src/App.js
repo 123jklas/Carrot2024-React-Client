@@ -10,6 +10,7 @@ import TermsAndConditions from './pages/Legal/Terms&Conditions'
 import PrivacyPolicy from './pages/Legal/PrivacyPolicy'
 import './assets/styles/App.css'
 import AboutPage from './pages/AboutPage/About';
+import SubleasePage from './pages/SubleasePage/Sublease';
 import AddProduct from './pages/Products/AddProduct';
 import ProductDetail from './pages/Products/ProductDetail';
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/post" element={<Post />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/sublease" element={<SubleasePage />} />
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/product/:productId" element={<ProductDetail />} />
         </Routes>

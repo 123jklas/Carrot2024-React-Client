@@ -71,6 +71,9 @@ const Navbar = () => {
           <Button component={Link} to="/About" color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
             About
           </Button>
+          <Button component={Link} to="/Sublease" color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
+            Sublease
+          </Button>
         </Box>
 
         {/* Right side: Search bar and button */}
