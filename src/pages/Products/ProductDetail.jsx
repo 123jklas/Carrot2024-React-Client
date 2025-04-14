@@ -4,6 +4,8 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import '../../assets/styles/Post.css';
 import defaultImage from '../../assets/images/default.png';
+import hookemHand from '../../assets/images/hookem.png';
+
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -233,9 +235,18 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            <button className="hook-up-button" onClick={handleSubmit}>
+            <button
+              className={`hook-up-button ${hasVoted ? 'voted' : ''}`}
+              onClick={handleSubmit}
+            >
+              <img
+                src={hookemHand}
+                alt="Hook Em Hand"
+                className={`hookem-icon ${hasVoted ? 'hookem-active' : ''}`}
+              />
               {hasVoted ? 'Hook Down' : 'Hook Up'}
             </button>
+
           </div>
         </div>
 
