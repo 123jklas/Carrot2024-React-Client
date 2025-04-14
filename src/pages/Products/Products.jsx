@@ -6,6 +6,7 @@ import Footer from '../../components/Footer';
 import default_image from '../../assets/images/default.png';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@mui/material';
+import hookemHand from '../../assets/images/hookem.png';
 
 const Products = () => {
   const navigate = useNavigate();
@@ -16,6 +17,17 @@ const Products = () => {
   const [category, setCategory] = useState('');
   const [priceRange, setPriceRange] = useState([0, 500]);
   const [maxPrice, setMaxPrice] = useState(500);
+  const [popularityMap, setPopularityMap] = useState({});
+  const [votedPosts, setVotedPosts] = useState({}); // key: productId, value: true/false
+
+  const toggleVote = (productId) => {
+    setVotedPosts(prev => ({
+      ...prev,
+      [productId]: !prev[productId],
+    }));
+  };
+
+
   // // const [locations, setLocations] = useState({
   // //   gregoryGym: false,
   // //   eer: false,
@@ -89,6 +101,9 @@ const Products = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        ...(localStorage.getItem("token") && {
+          'Authorization': `Token ${localStorage.getItem("token")}`,
+        }),
       },
       body: JSON.stringify(filters),
     })
@@ -101,11 +116,54 @@ const Products = () => {
       .then(data => {
         console.log('Filtered products:', data);
         setFilteredProducts(data);
+
+        // Set initial popularity and vote state maps
+        const popMap = {};
+        const voteMap = {};
+        data.forEach(product => {
+          popMap[product.id] = product.popularity;
+          voteMap[product.id] = product.voted; // only if your backend sends this
+        });
+        console.log('Popularity Map:', popMap);
+        console.log('Vote Map:', voteMap);
+        setPopularityMap(popMap);
+        setVotedPosts(voteMap);
       })
       .catch(error => {
         console.error('Error:', error);
       });
   };
+
+  const handleVoteToggle = async (productId) => {
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/toggle-popularity/${productId}/`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        setPopularityMap(prev => ({
+          ...prev,
+          [productId]: data.popularity,
+        }));
+        setVotedPosts(prev => ({
+          ...prev,
+          [productId]: data.voted,
+        }));
+      } else {
+        console.error("Error toggling vote:", data.error);
+      }
+    } catch (err) {
+      console.error("Network error toggling vote:", err);
+    }
+  };
+  
 
   const handleAddPostClick = () => {
     navigate('/add-product')
@@ -220,6 +278,7 @@ const Products = () => {
                   key={product.id} 
                   onClick={() => navigate(`/product/${product.id}`)} 
                   style={{ 
+                    position: "relative",
                     cursor: "pointer", 
                     border: "2px solidrgb(170, 169, 169)", // color of the border
                     width: "250px",
@@ -233,6 +292,21 @@ const Products = () => {
                    onMouseEnter={(e) => e.currentTarget.style.border = "2px solid rgb(238, 126, 106)"} // Changes border color on hover
                    onMouseLeave={(e) => e.currentTarget.style.border = "2px solid rgb(170, 169, 169)"} // Resets border color when mouse leaves
                   > 
+                  <button
+                    className={`floating-hookem-button ${votedPosts[product.id] ? 'active' : ''}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleVoteToggle(product.id);
+                    }}
+                  >
+                    <img
+                      src={hookemHand}
+                      alt="Hook Em"
+                      className="floating-hookem-img"
+                    />
+                  </button>
+
+
                   <div 
                   className="product-image" 
                   style={{ width: "250px", height: "220px", overflow: "hidden", display: "flex", justifyContent: "center", alignItems: "center" }}

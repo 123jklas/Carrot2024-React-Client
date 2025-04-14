@@ -364,3 +364,27 @@
 .make-post-button:active {
   transform: translateY(0);
 }
+
+.floating-hookem-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.floating-hookem-img {
+  width: 30px;
+  height: 30px;
+  filter: brightness(0) invert(1)
+          drop-shadow(1px 1px 0 black)
+          drop-shadow(-1px -1px 0 black); /* visible black outline */
+  transition: filter 0.3s ease;
+}
+
+.floating-hookem-button.active .floating-hookem-img {
+  filter: none;
+}
