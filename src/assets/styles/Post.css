@@ -171,6 +171,7 @@ body {
   margin: 0;
   font-size: 16px;
   color: var(--font-color-light);
+  white-space: pre-line;
 }
 
 .product-stats {
@@ -253,4 +254,56 @@ body {
   font-size: 14px;
   color: var(--accent-color);
   margin-top: 5px;
+}
+
+.hook-up-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  background-color: #ff9100;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  perspective: 1200px; /* Enables 3D rotation effect */
+}
+.hookem-icon {
+  width: 40px;
+  height: 40px;
+  filter: brightness(0) invert(1)
+          drop-shadow(1px 1px 0 black)
+          drop-shadow(-1px -1px 0 black); /* visible black outline */
+  transition: filter 0.3s ease;
+}
+
+.hookem-active {
+  animation: realisticBounce 0.6s ease-out;
+  filter: none; /* Switch to original orange */
+}
+
+@keyframes realisticBounce {
+  0% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-50px); /* Big jump */
+  }
+  50% {
+    transform: translateY(0); /* Land */
+  }
+  65% {
+    transform: translateY(-20px); /* Small bounce */
+  }
+  80% {
+    transform: translateY(0); /* Land */
+  }
+  90% {
+    transform: translateY(-10px); /* Final tiny bounce */
+  }
+  100% {
+    transform: translateY(0);
+  }
 }

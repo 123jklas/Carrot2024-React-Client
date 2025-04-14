@@ -16,7 +16,7 @@ const Footer = () => {
     >
       <Container maxWidth="lg">
         <Typography variant="body2" color="text.secondary" align="center">
-          © {new Date().getFullYear()} UT 당근. All rights reserved.
+          © {new Date().getFullYear()} UT Carrot. All rights reserved.
         </Typography>
         <Typography
           variant="body2"
@@ -32,7 +32,7 @@ const Footer = () => {
             underline="hover"
             sx={{ mx: 1 }}
           >
-            개인정보처리방침
+            Terms & Conditions
           </Link>
           {' | '}
           <Link
@@ -42,7 +42,7 @@ const Footer = () => {
             underline="hover"
             sx={{ mx: 1 }}
           >
-            이용약관
+            Privacy Policy
           </Link>
         </Typography>
       </Container>
