@@ -188,7 +188,7 @@ const Products = () => {
       search: searchQuery,
     };
     applyFilters(filterData);
-  }, [category, priceRange, sortOption, searchQuery]);
+  }, []);
 
   return (
     <div className="products-container">
