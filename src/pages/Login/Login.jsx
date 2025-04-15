@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Container,
   TextField,
@@ -20,6 +20,13 @@ const Login = () => {
   const [password, setPassword] = useState('')
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      navigate('/home/')
+    }
+  }, [navigate])
 
   const handleSubmit = async event => {
     event.preventDefault()

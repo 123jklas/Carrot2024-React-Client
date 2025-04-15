@@ -11,7 +11,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search'
 import { useNavigate } from 'react-router-dom'
 import carrot from '../assets/images/carrot.png'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('')
@@ -31,15 +31,15 @@ const Navbar = () => {
   }
 
   const handleSubleaseClick = () => {
-    navigate('/Sublease/')
-  }
+    navigate('/products?category=sublease');
+  };  
 
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     // Navigate to the Products page with the search query as a URL parameter.
-    navigate(`/products?search=${encodeURIComponent(searchQuery)}`);
-  };
+    navigate(`/products?search=${encodeURIComponent(searchQuery)}`)
+  }
 
   return (
     <AppBar
@@ -72,16 +72,26 @@ const Navbar = () => {
         {/* Center: Navigation Links */}
         <Box sx={{ display: 'flex', gap: 10 }}>
           <Button
-              color="inherit"
-              sx={{ color: '#333', fontWeight: 'bold' }}
-              onClick={handleProductsClick}
+            color="inherit"
+            sx={{ color: '#333', fontWeight: 'bold' }}
+            onClick={handleProductsClick}
           >
             products
           </Button>
-          <Button color="inherit" sx={{ color: '#333', fontWeight: 'bold' }} onClick={handleAboutClick}>
+          <Button
+            component={Link}
+            to="/About"
+            color="inherit"
+            sx={{ color: '#333', fontWeight: 'bold' }}
+          >
             About
           </Button>
-          <Button color="inherit" sx={{ color: '#333', fontWeight: 'bold' }} onClick={handleSubleaseClick}>
+          <Button
+            component={Link}
+            to="/Sublease"
+            color="inherit"
+            sx={{ color: '#333', fontWeight: 'bold' }}
+          >
             Sublease
           </Button>
         </Box>
@@ -110,11 +120,11 @@ const Navbar = () => {
             placeholder="Search"
             size="small"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={(e) => {
+            onChange={e => setSearchQuery(e.target.value)}
+            onKeyDown={e => {
               if (e.key === 'Enter') {
                 // e.preventDefault();
-                handleSearchSubmit(e);
+                handleSearchSubmit(e)
               }
             }}
             sx={{ bgcolor: '#f7f7f7', borderRadius: '5px', mr: 2 }}
@@ -127,7 +137,18 @@ const Navbar = () => {
             }}
           />
           <div>
-            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="circle" onClick={handleProfileClick}/>
+            {localStorage.getItem('token') ? (
+              <img
+                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                alt="Profile"
+                className="circle"
+                onClick={handleProfileClick}
+              />
+            ) : (
+              <Button onClick={() => navigate('/')} variant="contained">
+                Login
+              </Button>
+            )}
           </div>
         </Box>
       </Toolbar>

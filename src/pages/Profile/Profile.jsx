@@ -70,6 +70,11 @@ const Profile = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/home/');
+  };
+
   if (loading) return <div className="profile-container"><Navbar /><p>Loading...</p><Footer /></div>;
 
   return (
@@ -80,7 +85,10 @@ const Profile = () => {
           <img src={user.image || default_image} alt="Profile" className="profile-pic" />
           <h2 className="username">{user.username}</h2>
           <a className="email" href={`mailto:${user.email}`}>{user.email}</a>
-          <Button variant="contained" color="warning" className="edit-btn" onClick={() => setIsEditing(true)}>Edit</Button>
+          <div className="button-group">
+            <Button variant="contained" color="warning" className="edit-btn" onClick={() => setIsEditing(true)}> Edit </Button>
+            <Button variant="contained" color="error" className="logout-btn" onClick={handleLogout}> Sign Out </Button>
+          </div>
           <nav className="sidebar-nav">
             <p className={viewMode === 'products' ? 'active' : ''} onClick={() => setViewMode('products')}>My Products</p>
             <p className={viewMode === 'favorites' ? 'active' : ''} onClick={() => setViewMode('favorites')}>My Hooked Products</p>

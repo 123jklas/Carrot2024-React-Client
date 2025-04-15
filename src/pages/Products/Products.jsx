@@ -12,9 +12,11 @@ const Products = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('search') || '';
+  const categoryQuery = searchParams.get('category') || '';
+
 
   // State management for filters
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState(categoryQuery);
   const [priceRange, setPriceRange] = useState([0, 500]);
   const [maxPrice, setMaxPrice] = useState(500);
   const [popularityMap, setPopularityMap] = useState({});
@@ -182,13 +184,15 @@ const Products = () => {
 
   useEffect(() => {
     const filterData = {
-      category,
+      category: categoryQuery,
       priceRange,
       sortBy: sortOption,
       search: searchQuery,
     };
     applyFilters(filterData);
-  }, []);
+  }, [categoryQuery, searchQuery, priceRange, sortOption]);
+  
+  
 
   return (
     <div className="products-container">
@@ -329,7 +333,7 @@ const Products = () => {
                       {new Date(product.created_at).toLocaleDateString()}
                     </span>
                     <span className="popularity">
-                      Popularity: {product.popularity}
+                      Likes: {product.popularity}
                     </span>
                   </div>
                 </div>
