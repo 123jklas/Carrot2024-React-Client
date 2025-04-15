@@ -36,6 +36,7 @@ const Home = () => {
     { name: 'Tickets', icon: 'confirmation_number' },
     { name: 'Study Material', icon: 'menu_book' },
     { name: 'Miscellaneous', icon: 'category' },
+    { name: 'Sublease', icon: 'bedroom_parent' }, 
   ];
 
   const [likedProducts, setLikedProducts] = useState([]);
