@@ -172,6 +172,7 @@ body {
   font-size: 16px;
   color: var(--font-color-light);
   white-space: pre-line;
+  text-align: left;
 }
 
 .product-stats {

@@ -238,7 +238,7 @@ const Home = () => {
               <CardContent>
                 <Typography fontWeight={600}>{product.name}</Typography>
                 <Typography variant="body2" color="text.secondary">${product.price}</Typography>
-                <Typography variant="caption" color="text.secondary">Popularity: {product.popularity}</Typography>
+                <Typography variant="caption" color="text.secondary">Likes: {product.popularity}</Typography>
               </CardContent>
             </Card>
           ))}

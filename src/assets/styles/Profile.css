@@ -49,6 +49,15 @@
   font-size: 0.875rem;
 }
 
+.logout-btn {
+  margin: 0.75rem 0 0.75rem 1rem;
+  font-size: 0.875rem;
+}
+
+.button-group > button + button {
+  margin-left: 1rem;
+}
+
 .sidebar-nav {
   margin-top: 1.25rem;
   text-align: left;

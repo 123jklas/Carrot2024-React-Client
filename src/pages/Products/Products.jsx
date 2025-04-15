@@ -333,7 +333,7 @@ const Products = () => {
                       {new Date(product.created_at).toLocaleDateString()}
                     </span>
                     <span className="popularity">
-                      Popularity: {product.popularity}
+                      Likes: {product.popularity}
                     </span>
                   </div>
                 </div>
