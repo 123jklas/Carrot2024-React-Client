@@ -25,6 +25,16 @@ const Navbar = () => {
   const handleProductsClick = () => {
     navigate('/products/')
   }
+
+  const handleAboutClick = () => {
+    navigate('/About/')
+  }
+
+  const handleSubleaseClick = () => {
+    navigate('/Sublease/')
+  }
+
+
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     // Navigate to the Products page with the search query as a URL parameter.
@@ -68,10 +78,10 @@ const Navbar = () => {
           >
             products
           </Button>
-          <Button component={Link} to="/About" color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
+          <Button color="inherit" sx={{ color: '#333', fontWeight: 'bold' }} onClick={handleAboutClick}>
             About
           </Button>
-          <Button component={Link} to="/Sublease" color="inherit" sx={{ color: '#333', fontWeight: 'bold' }}>
+          <Button color="inherit" sx={{ color: '#333', fontWeight: 'bold' }} onClick={handleSubleaseClick}>
             Sublease
           </Button>
         </Box>

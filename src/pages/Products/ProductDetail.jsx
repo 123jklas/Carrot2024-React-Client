@@ -19,7 +19,6 @@ const ProductDetail = () => {
   const isAuthenticated = !!localStorage.getItem("token");
 
   // Example placeholders for phone, seller name, and views
-  const [phone, setPhone] = useState('000-000-0000');
   const [sellerName, setSellerName] = useState('ChaeTae');
   const [views, setViews] = useState(373);
 
@@ -225,7 +224,6 @@ const ProductDetail = () => {
             </div>
 
             <div className="product-price">${product.price}</div>
-            <div className="product-phone">{phone}</div>
 
             <div className="beige-box">
               <p className="product-description">{product.content}</p>

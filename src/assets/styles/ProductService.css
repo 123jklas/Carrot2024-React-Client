@@ -139,7 +139,7 @@ form textarea {
 /* Primary submit & cancel buttons */
 button {
   padding: 0.75rem 2rem;
-  background-color: #007bff;
+  background-color: #FE8D01;
   color: white;
   border: none;
   cursor: pointer;
@@ -147,5 +147,6 @@ button {
   font-size: 1rem;
 }
 button:hover {
-  background-color: #0056b3;
+  background-color: #e67700;
 }
+

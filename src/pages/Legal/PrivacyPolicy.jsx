@@ -140,7 +140,7 @@ const PrivacyPolicy = () => {
             </Typography>
             <Typography variant="body1" paragraph>
                 If you have any questions about this Privacy Policy, please contact us
-                at <strong>privacy@yourwebsite.com</strong>.
+                at <strong>utcodong@gmail.com</strong>.
             </Typography>
             </Box>
         </Container>
