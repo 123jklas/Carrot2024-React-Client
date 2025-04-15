@@ -9,7 +9,6 @@ const AddProduct = () => {
   const [content, setContent] = useState('');
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
-  const [phone, setPhone] = useState('');
   const [category, setCategory] = useState('');
   const [categories, setCategories] = useState([]);
 
@@ -106,7 +105,6 @@ const AddProduct = () => {
     formData.append('content', content);
     formData.append('name', name);
     formData.append('price', price);
-    formData.append('phone', phone);
     formData.append('category', category);
 
     // Append main image if available
@@ -284,23 +282,6 @@ const AddProduct = () => {
             id="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-          />
-
-
-
-          {/* Phone */}
-          <label htmlFor="phone">Phone:</label>
-          <input
-            id="phone"
-            type="text"
-            value={phone}
-            onChange={(e) => {
-              const onlyDigits = e.target.value.replace(/\D/g, '');
-              if (onlyDigits.length <= 10) {
-                setPhone(onlyDigits);
-              }
-            }}
-            required
           />
 
 
