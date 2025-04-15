@@ -120,7 +120,7 @@ const TermsAndConditions = () => {
             </Typography>
             <Typography variant="body1" paragraph>
             If you have any questions about these Terms and Conditions, please
-            contact us at <strong>support@yourwebsite.com</strong>.
+            contact us at <strong>utcodong@gmail.com</strong>.
             </Typography>
         </Box>
         </Container>
