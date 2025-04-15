@@ -190,7 +190,7 @@ const Products = () => {
       search: searchQuery,
     };
     applyFilters(filterData);
-  }, [categoryQuery, searchQuery, priceRange, sortOption]);
+  }, [categoryQuery]);
   
   
 

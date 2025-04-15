@@ -79,18 +79,16 @@ const Navbar = () => {
             products
           </Button>
           <Button
-            component={Link}
-            to="/About"
             color="inherit"
             sx={{ color: '#333', fontWeight: 'bold' }}
+            onClick={handleAboutClick}
           >
             About
           </Button>
           <Button
-            component={Link}
-            to="/Sublease"
             color="inherit"
             sx={{ color: '#333', fontWeight: 'bold' }}
+            onClick={handleSubleaseClick}
           >
             Sublease
           </Button>
