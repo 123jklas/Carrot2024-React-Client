@@ -31,8 +31,8 @@ const Navbar = () => {
   }
 
   const handleSubleaseClick = () => {
-    navigate('/Sublease/')
-  }
+    navigate('/products?category=sublease');
+  };  
 
 
   const handleSearchSubmit = (e) => {
